@@ -5,25 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | Veltron Auto</title>
     <link rel="stylesheet" href="Assets/css/styles.css">
-    <div class="form-container">
-    </head>
-    <body>
-            <nav class="main-nav">
+    <link rel="icon" type="image/x-icon" href="Assets/img/favicon.ico">
+</head>
+<body>
+
+    <nav class="main-nav">
         <div class="logo">
             <a href="index.html">VELTRON AUTO</a>
         </div>
-
         <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
-        
         <ul class="nav-links" id="nav-links">
-            <li><a href="#">Models</a></li>
+            <li><a href="index.html#features">Models</a></li>
             <li><a href="#">E-Mobility</a></li>
             <li><a href="#">Advice & Purchase</a></li>
             <li><a href="#">Service</a></li>
-            <li><a href="/contact.html" class="nav-contact">Contact</a></li>
+            <li><a href="contact.html" class="nav-contact">Contact</a></li>
         </ul>
     </nav>
+
+    <section class="about-veltron" style="padding-top: 150px; min-height: 80vh;">
+        <div class="about-container">
+            <div class="about-text">
+                <h2>Contact Us</h2>
+                <p class="intro-bio">Have a question or want to collaborate? We'd love to hear from you.</p>
+                
+                <div class="info-table">
+                    <div class="table-row">
+                        <span class="col-name">Email</span>
+                        <span class="col-desc">info@veltroncars.com</span>
+                    </div>
+                    <div class="table-row">
+                        <span class="col-name">Location</span>
+                        <span class="col-desc">Belgrade, Serbia</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="model-card" style="text-align: left; padding: 40px; max-width: 500px;">
+                <form action="#" style="display: flex; flex-direction: column; gap: 20px;">
+                    <input type="text" placeholder="Your Name" style="background: #000; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 4px;">
+                    <input type="email" placeholder="Your Email" style="background: #000; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 4px;">
+                    <textarea placeholder="Message" rows="5" style="background: #000; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 4px;"></textarea>
+                    <div class="cta-container" style="width: fit-content;">
+                        <button type="submit">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="index.html" class="footer-logo">VELTRON</a>
+                <p>Shaping the future of automotive mobility.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="index.html#about-section">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 VELTRON AUTO. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+
+</body>
+</html>

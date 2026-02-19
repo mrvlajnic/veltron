@@ -43,9 +43,9 @@
             <h1>New Veltron V1 SportLine</h1>
             <p>Modern design meets ultimate performance.</p>
 
-            <div class="container">
+            <div class="cta-container">
                 <a href="VeltronV1.html" style="text-decoration: none;">
-                    <button>Discover More</button>
+                    <button type="button">Discover More</button>
                 </a>
             </div>
         </div>
@@ -87,43 +87,73 @@
                         <span class="col-year">2024-25</span>
                     </div>
                 </div>
-            </div> <div class="about-visual">
+            </div> 
+
+            <div class="about-visual">
                 <img src="Assets/img/logo.png" alt="Veltron V Logo" class="big-v-logo">
             </div>
 
-        </div> </section>
-    <section class="models-section" id="models">
-        <div class="models-container">
-            <h2 class="section-label">Our Models</h2>
-            
-            <div class="models-grid">
-                <div class="model-card">
-                    <div class="model-thumb">
-                        <img src="Assets/img/Screenshot (42).png" alt="Veltron V1">
-                    </div>
-                    <span class="model-name">V1 SportLine</span>
-                </div>
-
-                <div class="model-card">
-                    <div class="model-thumb">
-                        <img src="Assets/img/Screenshot (42).png" alt="Veltron V-GT">
-                    </div>
-                    <span class="model-name">V-GT</span>
-                </div>
-
-                <div class="model-card">
-                    <div class="model-thumb">
-                        <img src="Assets/img/Screenshot (42).png" alt="Veltron E-Vision">
-                    </div>
-                    <span class="model-name">E-Vision</span>
-                </div>
-
-                </div>
-        </div>
+        </div> 
     </section>
 
+   <section class="features-section" id="features">
+        <div class="features-container">
+            <div class="features-grid">
+                
+                <a href="models.html" class="feature-card">
+                    <div class="feature-icon">
+                        <img src="Assets/img/diler.png" alt="Models">
+                    </div>
+                    <span class="feature-label">Models</span>
+                </a>
+
+                <a href="service.html" class="feature-card">
+                    <div class="feature-icon">
+                        <img src="Assets/img/service.png" alt="Service">
+                    </div>
+                    <span class="feature-label">Service</span>
+                </a>
+
+                <a href="dealers.html" class="feature-card">
+                    <div class="feature-icon">
+                        <img src="Assets/img/dealer.png" alt="Dealers">
+                    </div>
+                    <span class="feature-label">Find a Dealer</span>
+                </a>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <a href="index.html" class="footer-logo">VELTRON</a>
+            <p>Shaping the future of automotive mobility.</p>
+        </div>
+        
+        <div class="footer-links">
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#about-section">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Social</h4>
+                <ul>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 VELTRON AUTO. All rights reserved.</p>
+    </div>
+</footer>
     <script>
-        // Logika za Hamburger meni (mobilni)
+        // Mobile Menu Logic
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('nav-links');
 
@@ -132,13 +162,13 @@
             hamburger.classList.toggle('toggle');
         });
 
-        // Logika za gašenje Preloader-a nakon učitavanja
+        // Preloader Logic
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
                 preloader.style.opacity = '0';
                 preloader.style.visibility = 'hidden';
-            }, 600); // Kratko kašnjenje radi boljeg efekta
+            }, 600);
         });
     </script>
 
