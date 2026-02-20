@@ -135,6 +135,11 @@ body {
     font-size: 1.2rem;
     margin-bottom: 40px;
 }
+#hero-image {
+    background-color: #0a0a0a; /* Tamna boja dok slika ne stigne */
+    filter: blur(5px); /* Možeš startovati sa blagim blurom */
+    transition: filter 0.5s ease-in-out;
+}
 
 /* 5. PREMIUM BUTTON */
 .cta-container {
