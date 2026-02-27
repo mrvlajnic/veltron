@@ -284,7 +284,7 @@ body {
 }
 
 .feature-icon {
-    width: 108px; /* Veličina tvojih ikona */
+    width: 108px; /* Veličina ikona */
     height: 60px;
     margin-bottom: 20px;
     display: flex;
@@ -295,7 +295,7 @@ body {
 .feature-icon img {
     width: 100%;
     height: auto;
-    filter: invert(1); /* Ako su ti ikonice crne, ovo će ih napraviti belim */
+    filter: invert(1); /* Ako su ikonice crne, ovo će ih napraviti belim, stvaramo kontrast jbg malo rizicno */
     opacity: 0.8;
     transition: var(--transition);
 }
@@ -359,6 +359,257 @@ body {
     .table-row { flex-direction: column; gap: 5px; }
     .col-year { text-align: left; }
 }
+
+/* 9. Future Lab Sekcija */
+.future-lab {
+    padding: 100px 5%;
+    background-color: #050505;
+    color: #fff;
+    border-top: 1px solid #1a1a1a;
+}
+
+.lab-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.lab-header h2 {
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+    margin-bottom: 10px;
+}
+
+.lab-header .subtitle {
+    color: #888;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+/* Grid Sistem */
+.lab-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dve kolone za desktop */
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Blueprint Kartice */
+.lab-card {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 30px;
+    position: relative;
+    transition: all 0.4s ease;
+    min-height: 450px;
+}
+
+.blueprint-style {
+    border: 1px dashed #444; /* ISPREKIDANA LINIJA */
+}
+
+.lab-card:hover {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.card-tag {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 0.7rem;
+    color: #555;
+    text-transform: uppercase;
+}
+
+.lab-image, .lab-image-small {
+    width: 100%;
+    margin-bottom: 20px;
+    overflow: hidden;
+    filter: grayscale(100%) contrast(120%); /* Tehnički crno-beli izgled */
+    opacity: 0.7;
+}
+
+.lab-image img {
+    width: 100%;
+    height: auto;
+}
+/* Podesavanje oppasity i filtera na blueprint slikama da dobijemo taj tehnički izgled*/
+
+.lab-card:not(:first-child) .blueprint-img {
+    opacity: 0.6; /* Ovo će malo utopiti svetle slike u crnu pozadinu */
+}
+
+/* Lokacija - Pulsirajući efekat */
+.location-ping {
+    width: 10px;
+    height: 10px;
+    background-color: #ff0000;
+    border-radius: 50%;
+    margin: 20px auto;
+    box-shadow: 0 0 10px #ff0000;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+}
+
+/* Responzivnost za mobilni */
+@media (max-width: 768px) {
+    .lab-grid {
+        grid-template-columns: 1fr; /* Jedna kolona na telefonu */
+    }
+}
+/* Future Lab Section Base */
+.future-lab {
+    padding: 100px 5%;
+    background-color: #050505;
+    color: #ffffff;
+    border-top: 1px solid #1a1a1a;
+    font-family: 'Inter', sans-serif; /* Ili tvoj primarni font */
+}
+
+.lab-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.lab-header h2 {
+    font-size: 2.8rem;
+    letter-spacing: 8px;
+    margin-bottom: 15px;
+    font-weight: 300;
+}
+
+.lab-header .subtitle {
+    color: #666;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+}
+
+/* Grid Layout */
+.lab-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Technical Blueprint Aesthetic */
+.lab-card {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 40px;
+    position: relative;
+    border: 1px dashed #333; /* The dashed line you requested */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lab-card:hover {
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-5px);
+}
+
+.card-tag {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 0.65rem;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Image Handling */
+.lab-image, .lab-image-small {
+    width: 100%;
+    margin-bottom: 25px;
+    filter: grayscale(100%) brightness(0.8);
+    opacity: 0.8;
+    border: 1px solid #222;
+}
+
+.blueprint-img {
+    width: 100%;
+    display: block;
+}
+
+/* Map & Marker System */
+.map-container {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 25px;
+    border: 1px solid #222;
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.2) brightness(0.5);
+}
+
+.location-marker {
+    position: absolute;
+    /* Adjust these percentages to match your specific map image */
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background-color: #ff0000;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #ff0000;
+}
+
+.ping {
+    width: 8px;
+    height: 8px;
+    background-color: #ff0000;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: map-ping 2.5s infinite ease-out;
+}
+
+@keyframes map-ping {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(12); opacity: 0; }
+}
+
+/* Typography Inside Cards */
+.lab-card h3 {
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.lab-card p {
+    color: #aaa;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Responsive Logic */
+@media (max-width: 850px) {
+    .lab-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* 8. FOOTER SECTION */
 .main-footer {
     background-color: #000;
@@ -439,4 +690,68 @@ body {
 @media (max-width: 768px) {
     .footer-container { flex-direction: column; text-align: center; }
     .footer-links { justify-content: center; gap: 40px; }
+}
+/* 10. Construction page - Under Construction Sekcija */
+
+.construction-body {
+    background-color: #050505;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+}
+
+.construction-container {
+    padding: 20px;
+}
+
+.alert-title {
+    color: #ff0000; /* Moja prepoznatljiva crvena */
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.status-text {
+    color: #888;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+.back-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    color: #ff0000;
+    border-color: #ff0000;
+}
+#gradient-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(60px); /* Ovo pravi mekani prelaz dima */
+    pointer-events: none; /* Dozvoljava klikove na tekstove iznad */
+}
+
+/* Tekst koji je uvek vidljiv */
+.construction-container {
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
 }
