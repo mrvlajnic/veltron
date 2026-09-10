@@ -1,0 +1,12 @@
+# Veltron Auto - Robots Configuration
+# https://veltroncars.com
+
+User-agent: *
+Allow: /
+Disallow: /Assets/vid/
+
+# Host
+Host: https://veltroncars.com
+
+# Sitemaps
+Sitemap: https://veltroncars.com/sitemap.xml
