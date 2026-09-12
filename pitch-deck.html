@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veltron Auto — Pitch Deck</title>
+    <link rel="icon" type="image/x-icon" href="Assets/img/favicon.ico">
+    <style>
+        :root {
+            --bg-black: #050505;
+            --card-bg: #121212;
+            --border-color: #222222;
+            --primary-red: #ff0000;
+            --text-white: #ffffff;
+            --text-gray: #999999;
+            --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-family);
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Slide Container */
+        .deck-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            padding: 60px 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.98) translateY(15px);
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+            background: var(--bg-black);
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+            z-index: 10;
+        }
+
+        /* Header Elements */
+        .slide-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--primary-red);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .slide-title {
+            font-size: 2.2rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: var(--text-white);
+            margin-bottom: 35px;
+            line-height: 1.2;
+        }
+
+        .accent-line {
+            width: 45px;
+            height: 3px;
+            background-color: var(--primary-red);
+            margin-bottom: 25px;
+        }
+
+        /* Card Grid Layouts */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            width: 100%;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            width: 100%;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 6px;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(255, 0, 0, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .card-num {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-white);
+            margin-bottom: 12px;
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* Cover Slide */
+        .cover-slide {
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .cover-title {
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .cover-subtitle {
+            font-size: 1.4rem;
+            color: var(--primary-red);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .cover-meta {
+            font-size: 1rem;
+            color: var(--text-gray);
+            margin-top: 20px;
+        }
+
+        /* Footer Controls */
+        .controls {
+            position: fixed;
+            bottom: 25px;
+            right: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .btn-ctrl {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .btn-ctrl:hover {
+            border-color: var(--primary-red);
+            color: var(--primary-red);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 40px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: var(--text-gray);
+            z-index: 100;
+        }
+
+        .slide-counter span {
+            color: var(--primary-red);
+            font-weight: bold;
+        }
+
+        /* Print / PDF Styles */
+        @media print {
+            body { overflow: visible; background: #000; }
+            .deck-container { height: auto; }
+            .slide {
+                position: relative;
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: none !important;
+                page-break-after: always;
+                height: 100vh;
+            }
+            .controls, .slide-counter { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="deck-container" id="deck">
+
+        <!-- SLIDE 1: Cover -->
+        <div class="slide cover-slide active">
+            <div class="accent-line"></div>
+            <h1 class="cover-title">VELTRON AUTO</h1>
+            <div class="cover-subtitle">ENGINEERING EMOTION. DEFINING MOTION.</div>
+            <div class="cover-meta">
+                Investor & Partner Pitch Deck | Independent Automotive R&D Studio<br>
+                Founder & Automotive Design Director: <strong>Boris Vlajnić</strong> (Belgrade, Serbia)
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Problem -->
+        <div class="slide">
+            <div class="slide-tag">01 / The Industry Challenge</div>
+            <h2 class="slide-title">The Loss of Connection in Modern Automotive Engineering</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-num">PROBLEM 01</div>
+                    <div class="card-title">Tech Overload Without Emotion</div>
+                    <div class="card-desc">Vehicles are becoming heavier, overly digitalized, and disconnected. Oversized screens and complex infotainment remove the visceral joy of driving.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">PROBLEM 02</div>
+                    <div class="card-title">Generic EV Design Language</div>
+                    <div class="card-desc">Automotive design is shifting toward sterile, interchangeable shapes. Veltron rejects the notion that electrification must mean generic design.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">PROBLEM 03</div>
+                    <div class="card-title">The Core Challenge</div>
+                    <div class="card-desc">How to fuse advanced aerodynamics, powertrain intelligence, and digital Cockpits into a vehicle that retains true soul and driver engagement?</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Solution -->
+        <div class="slide">
+            <div class="slide-tag">02 / The Veltron Solution</div>
+            <h2 class="slide-title">The Four Pillars of Veltron Automotive Philosophy</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-num">PILLAR 01</div>
+                    <div class="card-title">EMOTIONAL AERODYNAMICS</div>
+                    <div class="card-desc">Form follows motion. Sculpting exterior surfaces where aerodynamic efficiency enhances aesthetic power and vehicle dynamics.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">PILLAR 02</div>
+                    <div class="card-title">INTELLIGENT ENGINEERING</div>
+                    <div class="card-desc">Performance without excess. High-precision structural and powertrain architecture tailored specifically for driver purpose.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">PILLAR 03</div>
+                    <div class="card-title">HUMAN-MACHINE INTELLIGENCE</div>
+                    <div class="card-desc">Technology should disappear into the experience. Cockpit software designed to empower the driver, not distract.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">PILLAR 04</div>
+                    <div class="card-title">ACCESSIBLE PERFORMANCE</div>
+                    <div class="card-desc">Democratizing high-performance engineering. Advanced vehicle dynamics engineered for engagement rather than hypercar price elitism.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Flagship Demonstrator -->
+        <div class="slide">
+            <div class="slide-tag">03 / Flagship Demonstrator</div>
+            <h2 class="slide-title">Veltron V1 SportLine — Premium Boutique Performance Sedan</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Concept Positioning</div>
+                    <div class="card-desc">Modern sports sedan combining daily usability, aerodynamic stability, and distinctive brand presence.</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Design Language</div>
+                    <div class="card-desc">Athletic sedan proportions, clean surfaces, premium dark aesthetic, and optimized air flow conduits.</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Digital Cockpit Integration</div>
+                    <div class="card-desc">Natively designed around the SkyUI 21:9 digital ecosystem for seamless driver control.</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Development Stage</div>
+                    <div class="card-desc">Full 3D surface model, aerodynamic CFD baseline studies, and technical packaging concepts completed.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: V-Force Propulsion -->
+        <div class="slide">
+            <div class="slide-tag">04 / Powertrain Architecture</div>
+            <h2 class="slide-title">V-Force Propulsion System Concept</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-num">01 / AGNOSTIC FRAMEWORK</div>
+                    <div class="card-title">Multi-Powertrain Compatibility</div>
+                    <div class="card-desc">V-Force is an R&D propulsion framework not tied to a single fuel source. It supports ICE, Hybrid, and EV architectures.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">02 / POWER DELIVERY</div>
+                    <div class="card-title">Intelligent Performance</div>
+                    <div class="card-desc">Engineered for linear torque application, thermal efficiency, dynamic throttle response, and compact packaging.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">03 / DRIVER ENGAGEMENT</div>
+                    <div class="card-title">Acoustic & Dynamic Feedback</div>
+                    <div class="card-desc">Ensures acoustic feedback and mechanical responsiveness regardless of powertrain configuration.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">04 / COMMERCIAL POTENTIAL</div>
+                    <div class="card-title">Boutique Technology Licensing</div>
+                    <div class="card-desc">Designed to serve Veltron vehicles and potential third-party boutique automotive R&D partners.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: SkyUI Cockpit -->
+        <div class="slide">
+            <div class="slide-tag">05 / Digital Cockpit & HMI</div>
+            <h2 class="slide-title">SkyUI — Modular Human-Machine Interface</h2>
+            <div class="grid-4">
+                <div class="card">
+                    <div class="card-num">01</div>
+                    <div class="card-title">21:9 Ultrawide Layout</div>
+                    <div class="card-desc">2560×960 target OLED interface tailored specifically for driver field of view and minimal eye travel.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">02</div>
+                    <div class="card-title">Core Modules</div>
+                    <div class="card-desc">Dual-zone climate (0.5° steps), 24-band EQ audio, navigation HUD, phone, media, and digital vehicle card.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">03</div>
+                    <div class="card-title">Driver-Centric UI</div>
+                    <div class="card-desc">Physical-control friendly, non-distracting animated transitions, and quick-action tactile controls.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">04</div>
+                    <div class="card-title">Future Architecture</div>
+                    <div class="card-desc">Planned CAN, OBD, LIN integration, Veltron AI voice assistant, and OTA cloud infrastructure.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Market & Benchmark -->
+        <div class="slide">
+            <div class="slide-tag">06 / Market & Benchmarks</div>
+            <h2 class="slide-title">Target Audience & Strategic Competitive Positioning</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Target Audience</div>
+                    <div class="card-desc">
+                        • Automotive Enthusiasts & Collectors seeking individuality<br>
+                        • Performance-oriented drivers wanting driver-focused technology<br>
+                        • Early adopters looking beyond mass-market EV offerings<br>
+                        • Boutique car buyers valuing design exclusivity
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Industry Benchmarks & USP</div>
+                    <div class="card-desc">
+                        <strong>Monitored Benchmarks:</strong> Porsche, BMW, Audi, Mercedes-Benz, Tesla, BYD, Xiaomi EV.<br><br>
+                        <strong>Veltron USP:</strong> Founder-led agile model, fusion of automotive styling & in-house software, driver-centric HMI.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Business Model -->
+        <div class="slide">
+            <div class="slide-tag">07 / Commercial Strategy</div>
+            <h2 class="slide-title">Multi-Tiered Revenue Model</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-num">REVENUE 01</div>
+                    <div class="card-title">Limited Vehicle Production</div>
+                    <div class="card-desc">High-margin boutique production runs of Veltron performance vehicles.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">REVENUE 02</div>
+                    <div class="card-title">Custom Design & R&D</div>
+                    <div class="card-desc">Automotive concept development, 3D visualization, and design consulting.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">REVENUE 03</div>
+                    <div class="card-title">Technology Licensing</div>
+                    <div class="card-desc">Licensing V-Force propulsion and SkyUI digital cockpit software to industry partners.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Global R&D Footprint -->
+        <div class="slide">
+            <div class="slide-tag">08 / Organizational Vision</div>
+            <h2 class="slide-title">International Distributed R&D Footprint</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-num">BELGRADE, SERBIA</div>
+                    <div class="card-title">R&D & Software Hub</div>
+                    <div class="card-desc">Core vehicle engineering, 3D development, software stack, and HMI prototyping.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">GERMANY</div>
+                    <div class="card-title">Headquarters</div>
+                    <div class="card-desc">Corporate governance, business operations, homologation, and European distribution.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">ITALY</div>
+                    <div class="card-title">Design Studio</div>
+                    <div class="card-desc">Automotive styling, clay modeling, and luxury surface design refinement.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">USA</div>
+                    <div class="card-title">Software & Cloud</div>
+                    <div class="card-desc">Advanced software, connected vehicle services, and AI voice integration.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Current Traction -->
+        <div class="slide">
+            <div class="slide-tag">09 / Traction & Validation</div>
+            <h2 class="slide-title">Current R&D Milestones & Digital Proof of Concept</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-num">MILESTONE 01</div>
+                    <div class="card-title">Digital Vehicle Architecture</div>
+                    <div class="card-desc">Complete 3D surface modeling, chassis architecture concepts, and high-precision render suites.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">MILESTONE 02</div>
+                    <div class="card-title">SkyUI Working Simulator</div>
+                    <div class="card-desc">Functional digital cockpit prototype running 21:9 HMI navigation, media, climate, and vehicle cards.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">MILESTONE 03</div>
+                    <div class="card-title">Autolooks Recognition</div>
+                    <div class="card-desc">Featured on Autolooks platform alongside historic brands (Yugo, FAP) as a new independent project.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">MILESTONE 04</div>
+                    <div class="card-title">Technical Documentation</div>
+                    <div class="card-desc">Structured documentation covering powertrain, electronics, chassis, and software infrastructure.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Roadmap & Capital -->
+        <div class="slide">
+            <div class="slide-tag">10 / Development Roadmap</div>
+            <h2 class="slide-title">3-Phase Execution Plan & Capital Deployment</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-num">PHASE 01 (2026)</div>
+                    <div class="card-title">Digital Engineering</div>
+                    <div class="card-desc"><strong>[In Progress]</strong><br>3D surface refinement, CFD aerodynamic baseline, SkyUI software stack, technical specs.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">PHASE 02 (2026–2027)</div>
+                    <div class="card-title">Prototyping</div>
+                    <div class="card-desc"><strong>[Planned]</strong><br>Physical component prototypes, HMI hardware rig, powertrain proof-of-concept.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num">PHASE 03 (2027+)</div>
+                    <div class="card-title">Physical Validation</div>
+                    <div class="card-desc"><strong>[Future]</strong><br>1:1 full-scale prototype, track testing, thermal & aerodynamic validation, pre-production.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: Leadership & Closing -->
+        <div class="slide">
+            <div class="slide-tag">11 / Leadership & Vision</div>
+            <h1 class="cover-title" style="font-size: 3rem;">BORIS VLAJNIĆ</h1>
+            <div class="cover-subtitle" style="font-size: 1.2rem;">Founder & Automotive Design Director</div>
+            <div class="cover-meta" style="margin-top: 30px;">
+                <strong>Veltron Cars — Independent Automotive R&D Studio</strong><br><br>
+                <em style="font-size: 1.3rem; color: var(--text-white);">"Engineering Emotion. Defining Motion."</em><br><br>
+                Contact: <strong>office@veltroncars.com</strong> | Belgrade, Serbia | veltroncars.com
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Slide counter and Navigation Controls -->
+    <div class="slide-counter">SLIDE <span id="current-slide">01</span> / <span id="total-slides">12</span></div>
+
+    <div class="controls">
+        <button class="btn-ctrl" id="prev-btn" title="Previous Slide (←)">←</button>
+        <button class="btn-ctrl" id="next-btn" title="Next Slide (→)">→</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const currentSlideEl = document.getElementById('current-slide');
+        const totalSlidesEl = document.getElementById('total-slides');
+        let currentIndex = 0;
+
+        totalSlidesEl.textContent = String(slides.length).padStart(2, '0');
+
+        function updateSlides() {
+            slides.forEach((slide, i) => {
+                if (i === currentIndex) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+            currentSlideEl.textContent = String(currentIndex + 1).padStart(2, '0');
+        }
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (currentIndex < slides.length - 1) {
+                currentIndex++;
+                updateSlides();
+            }
+        });
+
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlides();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                if (currentIndex < slides.length - 1) {
+                    currentIndex++;
+                    updateSlides();
+                }
+            } else if (e.key === 'ArrowLeft') {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateSlides();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
