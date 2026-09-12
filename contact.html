@@ -128,17 +128,79 @@
             </div>
 
             <div class="model-card" style="text-align: left; padding: 40px; max-width: 500px;">
-                <form action="#" style="display: flex; flex-direction: column; gap: 20px;">
-                    <input type="text" placeholder="Your Name" style="background: #000; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 4px;">
-                    <input type="email" placeholder="Your Email" style="background: #000; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 4px;">
-                    <textarea placeholder="Message" rows="5" style="background: #000; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 4px;"></textarea>
+                <form id="contact-form" style="display: flex; flex-direction: column; gap: 20px;">
+                    <!-- Anti-Bot Honeypot Trap (Hidden from human users) -->
+                    <input type="text" name="website_hp" style="display:none !important;" tabindex="-1" autocomplete="off">
+
+                    <input type="text" id="contact-name" name="name" placeholder="Your Name" required style="background: #000; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 4px;">
+                    <input type="email" id="contact-email" name="email" placeholder="Your Email" required style="background: #000; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 4px;">
+                    <textarea id="contact-message" name="message" placeholder="Message" rows="5" required style="background: #000; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 4px;"></textarea>
+                    
+                    <div id="form-alert" style="display:none; padding: 12px; border-radius: 4px; font-size: 0.85rem; line-height: 1.4;"></div>
+
                     <div class="cta-container" style="width: fit-content;">
-                        <button type="submit">Send Message</button>
+                        <button type="submit" id="submit-btn">Send Message</button>
                     </div>
                 </form>
             </div>
         </div>
     </section>
+
+    <script>
+        const contactForm = document.getElementById('contact-form');
+        const formAlert = document.getElementById('form-alert');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Automatic fallback backend URL (Localhost during development, Render/Railway in production)
+        const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? 'http://localhost:5000/api/contact'
+            : 'https://veltron-backend.onrender.com/api/contact'; // Replace with deployed backend URL
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                formAlert.style.display = 'none';
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+
+                const payload = {
+                    name: document.getElementById('contact-name').value,
+                    email: document.getElementById('contact-email').value,
+                    message: document.getElementById('contact-message').value,
+                    website_hp: contactForm.querySelector('[name="website_hp"]').value
+                };
+
+                try {
+                    const res = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const data = await res.json();
+                    if (res.ok && data.success) {
+                        formAlert.style.display = 'block';
+                        formAlert.style.background = 'rgba(0, 255, 100, 0.1)';
+                        formAlert.style.border = '1px solid #00ff64';
+                        formAlert.style.color = '#00ff64';
+                        formAlert.textContent = 'Hvala na poruci! Poruka je uspešno poslata.';
+                        contactForm.reset();
+                    } else {
+                        throw new Error(data.error || 'Greška prilikom slanja.');
+                    }
+                } catch (err) {
+                    formAlert.style.display = 'block';
+                    formAlert.style.background = 'rgba(255, 0, 0, 0.15)';
+                    formAlert.style.border = '1px solid #ff0000';
+                    formAlert.style.color = '#ff6b6b';
+                    formAlert.textContent = err.message || 'Neuspešno slanje. Molimo pokušajte ponovo.';
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Message';
+                }
+            });
+        }
+    </script>
 
     <footer class="main-footer">
         <div class="footer-container">
