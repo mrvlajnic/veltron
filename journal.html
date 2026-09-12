@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veltron Journal | Automotive Design, Technology & Motion</title>
+    
+    <link rel="stylesheet" href="Assets/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="Assets/img/favicon.ico">
+    <link rel="canonical" href="https://veltroncars.com/journal.html">
+
+    <!-- Meta Tags -->
+    <meta name="title" content="Veltron Journal | Automotive Design, Technology & Motion">
+    <meta name="description" content="Explore official news, design deep-dives, and engineering releases from Veltron Auto — an independent automotive R&D studio in Belgrade.">
+    <meta name="keywords" content="Veltron Journal, Automotive News, Car Design Blog, V-Force Propulsion, SkyUI Cockpit, Boris Vlajnić">
+    <meta name="author" content="Boris Vlajnić">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://veltroncars.com/journal.html">
+    <meta property="og:title" content="Veltron Journal | Automotive Design, Technology & Motion">
+    <meta property="og:description" content="Official releases, engineering papers, and styling stories from Veltron Auto.">
+    <meta property="og:image" content="https://veltroncars.com/Assets/img/Render2.webp">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Veltron Journal | Automotive Design, Technology & Motion">
+    <meta name="twitter:description" content="Official releases, engineering papers, and styling stories from Veltron Auto.">
+    <meta name="twitter:image" content="https://veltroncars.com/Assets/img/Render2.webp">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="logo">
+            <a href="index.html">VELTRON AUTO</a>
+        </div>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <ul class="nav-links" id="nav-links">
+            <li><a href="vision.html">Vision</a></li>
+            <li><a href="construction.html">Concepts</a></li>
+            <li><a href="construction.html">Process</a></li>
+            <li><a href="journal.html" class="active-nav-link">Journal</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html" class="nav-contact">Connect</a></li>
+        </ul>
+    </nav>
+
+    <!-- Journal Hero -->
+    <header class="journal-hero" id="journal-hero">
+        <div class="journal-hero-inner">
+            <span class="journal-tag-label">Official Releases & Stories</span>
+            <h1>VELTRON JOURNAL</h1>
+            <p>Perspectives on automotive styling, proprietary propulsion architecture, and driver-machine intelligence from our independent studio in Belgrade.</p>
+        </div>
+    </header>
+
+    <!-- Journal Feed & Single Reader Section -->
+    <section class="journal-section">
+        <div class="journal-container">
+
+            <!-- Category Filter Bar (Visible in Grid Mode) -->
+            <div class="journal-filter-bar" id="journal-filters">
+                <button class="journal-filter-btn active" data-filter="all">All Releases</button>
+                <button class="journal-filter-btn" data-filter="News">News</button>
+                <button class="journal-filter-btn" data-filter="Design">Design</button>
+                <button class="journal-filter-btn" data-filter="Engineering">Engineering</button>
+                <button class="journal-filter-btn" data-filter="Concepts">Concepts</button>
+            </div>
+
+            <!-- Articles Grid -->
+            <div class="journal-grid" id="journal-grid">
+                <!-- Dynamically populated or rendered fallback -->
+            </div>
+
+            <!-- Single Article Reader View -->
+            <article class="article-reader" id="article-reader">
+                <button class="btn-back-journal" id="btn-back-to-feed">← Back to all releases</button>
+                <div class="article-header">
+                    <span class="journal-cat-badge" id="reader-category">NEWS</span>
+                    <h1 class="article-title" id="reader-title"></h1>
+                    <div class="article-byline">
+                        <span>By <strong id="reader-author" style="color: #fff;">Boris Vlajnić</strong></span>
+                        <span>•</span>
+                        <span id="reader-date"></span>
+                    </div>
+                </div>
+                <img id="reader-featured-img" class="article-featured-img" src="" alt="" style="display: none;">
+                <div class="article-content-body" id="reader-content"></div>
+                <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border-color);">
+                    <button class="btn-back-journal" id="btn-back-to-feed-bottom">← Back to all releases</button>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Unified Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="index.html" class="footer-logo">VELTRON</a>
+                <p>Shaping the future of automotive mobility through hyper-performance aesthetics, intelligent architecture, and high-precision concept design.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Studio</h4>
+                    <ul>
+                        <li><a href="index.html">Overview</a></li>
+                        <li><a href="about.html">About Founder</a></li>
+                        <li><a href="index.html#about-section">Philosophy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Ecosystem</h4>
+                    <ul>
+                        <li><a href="vision.html">Vision</a></li>
+                        <li><a href="construction.html">Concepts</a></li>
+                        <li><a href="construction.html">Process</a></li>
+                        <li><a href="about.html">About Boris</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Direct</h4>
+                    <ul>
+                        <li><a href="contact.html">Contact Hub</a></li>
+                        <li><a href="mailto:office@veltroncars.com">office@veltroncars.com</a></li>
+                        <li><a href="construction.html">LinkedIn</a></li>
+                        <li><a href="construction.html">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 VELTRON AUTO. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <!-- Journal Client Logic -->
+    <script>
+        const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? 'http://localhost:5000'
+            : 'https://veltron-backend.onrender.com';
+
+        // Fallback seed articles in case backend is waking up or offline
+        const DEFAULT_ARTICLES = [
+            {
+                id: 1,
+                title: "Veltron Auto Positioned Alongside Pioneers Yugo and FAP on Autolooks",
+                slug: "veltron-auto-autolooks-recognition",
+                category: "News",
+                cover_image: "Assets/img/Render2.webp",
+                summary: "Autolooks has placed Veltron Auto in the center stage under the Serbian flag alongside historic national automotive legends Yugo and FAP.",
+                content: `## A Historic Context for a Next-Generation Vision\n\nVeltron Auto has received prominent recognition on the global automotive platform **Autolooks**, highlighted as an emerging independent automotive brand and R&D studio positioned alongside historic domestic icons **Yugo** and **FAP** under the Serbian flag.\n\n### Defining the Modern Driver's Car\n\nWhile historic manufacturing focused on utilitarian industrial mobility, Veltron represents the contemporary synthesis of **Emotional Aerodynamics**, proprietary **V-Force propulsion**, and intuitive human-centric cockpit software (**SkyUI**).\n\n> "Our goal is not simply to look back at heritage, but to forge forward into the future of automotive styling and mechanical intelligence from our studio in Belgrade."\n\nStay tuned for ongoing developments as our digital engineering and physical validation phases progress.`,
+                author: "Boris Vlajnić",
+                created_at: new Date().toISOString()
+            },
+            {
+                id: 2,
+                title: "The Philosophy of Emotional Aerodynamics: Sculpting the V1 SportLine",
+                slug: "philosophy-of-emotional-aerodynamics-v1",
+                category: "Design",
+                cover_image: "Assets/img/Render2.webp",
+                summary: "Exploring how functional airflow channels, athletic sedan proportions, and pure aesthetic emotion converge in the Veltron V1 SportLine.",
+                content: `## Form Follows Motion\n\nIn modern vehicle design, aerodynamics is too frequently treated as a sterile mathematical compromise—resulting in generic, interchangeable silhouettes.\n\nWith the **Veltron V1 SportLine**, our design studio set out to prove that drag reduction and downforce management can coexist with striking emotional presence.\n\n### Key Design Highlights\n\n* **Low-slung athletic silhouette:** Balancing high-speed laminar stability with classic sedan elegance.\n* **Integrated functional intakes:** Routing cooling air to powertrain components while sculpting muscular surface tension.\n* **SkyUI seamless cockpit:** An interior crafted to eliminate digital noise and center every control around the driver.\n\n*Read more technical updates in forthcoming Veltron Journal publications.*`,
+                author: "Boris Vlajnić",
+                created_at: new Date(Date.now() - 86400000).toISOString()
+            }
+        ];
+
+        let loadedArticles = [...DEFAULT_ARTICLES];
+        let currentFilter = 'all';
+
+        const journalGrid = document.getElementById('journal-grid');
+        const journalFilters = document.getElementById('journal-filters');
+        const articleReader = document.getElementById('article-reader');
+        const journalHero = document.getElementById('journal-hero');
+
+        // Simple Markdown to HTML Parser
+        function parseMarkdown(md) {
+            if (!md) return '';
+            let html = md
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                .replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>')
+                .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+                .replace(/\*(.*)\*/gim, '<em>$1</em>')
+                .replace(/!\[(.*?)\]\((.*?)\)/gim, '<img alt="$1" src="$2" />')
+                .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank" style="color: #ff0000;">$1</a>')
+                .replace(/^\* (.*$)/gim, '<li>$1</li>')
+                .replace(/^\- (.*$)/gim, '<li>$1</li>')
+                .replace(/\n\n+/g, '</p><p>');
+
+            // Fix lists & paragraphs
+            html = html.replace(/(<li>.*<\/li>)/gis, '<ul>$1</ul>');
+            return `<p>${html}</p>`;
+        }
+
+        function renderArticles(list) {
+            const filtered = currentFilter === 'all' 
+                ? list 
+                : list.filter(a => (a.category || '').toLowerCase() === currentFilter.toLowerCase());
+
+            if (!filtered || filtered.length === 0) {
+                journalGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #888;">No releases available in this category.</div>';
+                return;
+            }
+
+            journalGrid.innerHTML = filtered.map(article => `
+                <div class="journal-item-card" onclick="openArticle('${article.slug}')">
+                    <div class="journal-item-cover-wrapper">
+                        <img src="${article.cover_image || 'Assets/img/Render2.webp'}" alt="${escapeHtml(article.title)}" class="journal-item-cover" loading="lazy" decoding="async">
+                    </div>
+                    <div class="journal-item-content">
+                        <div class="journal-item-meta">
+                            <span class="journal-cat-badge">${escapeHtml(article.category || 'Release')}</span>
+                            <span class="journal-item-date">${new Date(article.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                        </div>
+                        <h2 class="journal-item-title">${escapeHtml(article.title)}</h2>
+                        <p class="journal-item-summary">${escapeHtml(article.summary || '')}</p>
+                        <div class="journal-read-link">
+                            Read Story <span>→</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function fetchJournalFromAPI() {
+            try {
+                const res = await fetch(`${API_BASE}/api/journal`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (Array.isArray(data) && data.length > 0) {
+                        // Resolve relative upload URLs to full backend URLs
+                        loadedArticles = data.map(item => {
+                            if (item.cover_image && item.cover_image.startsWith('/uploads')) {
+                                item.cover_image = `${API_BASE}${item.cover_image}`;
+                            }
+                            return item;
+                        });
+                        renderArticles(loadedArticles);
+                    }
+                }
+            } catch (err) {
+                console.log('Using default cached journal entries:', err);
+            }
+        }
+
+        function openArticle(slug) {
+            const article = loadedArticles.find(a => a.slug === slug);
+            if (!article) return;
+
+            document.getElementById('reader-title').textContent = article.title;
+            document.getElementById('reader-category').textContent = (article.category || 'Release').toUpperCase();
+            document.getElementById('reader-author').textContent = article.author || 'Boris Vlajnić';
+            document.getElementById('reader-date').textContent = new Date(article.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+            
+            const coverEl = document.getElementById('reader-featured-img');
+            if (article.cover_image) {
+                coverEl.src = article.cover_image;
+                coverEl.style.display = 'block';
+            } else {
+                coverEl.style.display = 'none';
+            }
+
+            // Convert markdown content with resolved image URLs
+            let bodyContent = article.content || '';
+            bodyContent = bodyContent.replace(/\/uploads\//g, `${API_BASE}/uploads/`);
+            document.getElementById('reader-content').innerHTML = parseMarkdown(bodyContent);
+
+            // Switch to reader view
+            journalGrid.style.display = 'none';
+            journalFilters.style.display = 'none';
+            journalHero.style.display = 'none';
+            articleReader.style.display = 'block';
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.location.hash = slug;
+        }
+
+        function closeArticle() {
+            articleReader.style.display = 'none';
+            journalGrid.style.display = 'grid';
+            journalFilters.style.display = 'flex';
+            journalHero.style.display = 'block';
+
+            window.location.hash = '';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('btn-back-to-feed').addEventListener('click', closeArticle);
+        document.getElementById('btn-back-to-feed-bottom').addEventListener('click', closeArticle);
+
+        // Filter Click Handling
+        document.querySelectorAll('.journal-filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.journal-filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-filter');
+                renderArticles(loadedArticles);
+            });
+        });
+
+        // Initialize
+        renderArticles(loadedArticles);
+        fetchJournalFromAPI().then(() => {
+            // Check hash for direct article link (e.g. journal.html#veltron-auto-autolooks-recognition)
+            if (window.location.hash) {
+                const slug = window.location.hash.substring(1);
+                if (slug) openArticle(slug);
+            }
+        });
+
+        function escapeHtml(str) {
+            return String(str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+    </script>
+</body>
+</html>

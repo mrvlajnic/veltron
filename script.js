@@ -16,9 +16,10 @@ const VELTRON_PAGE_ORDER = {
     '': 0,
     '/': 0,
     'vision.html': 1,
-    'construction.html': 2,
-    'about.html': 3,
-    'contact.html': 4
+    'journal.html': 2,
+    'construction.html': 3,
+    'about.html': 4,
+    'contact.html': 5
 };
 
 function getFilename(url) {

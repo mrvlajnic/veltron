@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     
@@ -41,10 +41,23 @@
         </image:image>
     </url>
 
+    <!-- Journal Page -->
+    <url>
+        <loc>https://veltroncars.com/journal.html</loc>
+        <lastmod>2026-09-13</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://veltroncars.com/Assets/img/Render2.webp</image:loc>
+            <image:title>Veltron Journal — Automotive Design &amp; Technology Stories</image:title>
+            <image:caption>Official releases, design deep-dives, and engineering papers from Veltron Auto</image:caption>
+        </image:image>
+    </url>
+
     <!-- Contact Page -->
     <url>
         <loc>https://veltroncars.com/contact.html</loc>
-        <lastmod>2026-09-10</lastmod>
+        <lastmod>2026-09-13</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
