@@ -62,9 +62,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger');
     const menu = document.getElementById('nav-links');
     if (hamburger && menu) {
-        hamburger.addEventListener('click', () => {
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
             menu.classList.toggle('active');
             hamburger.classList.toggle('toggle');
+        });
+
+        // Close mobile menu when clicking any nav link
+        const navItems = menu.querySelectorAll('a');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                menu.classList.remove('active');
+                hamburger.classList.remove('toggle');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (menu.classList.contains('active') && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+                menu.classList.remove('active');
+                hamburger.classList.remove('toggle');
+            }
         });
     }
 

@@ -465,8 +465,30 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 }
 
 /* 8. RESPONSIVE */
-.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-.hamburger span { width: 25px; height: 2px; background: white; transition: 0.3s; }
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 1001;
+    padding: 5px;
+}
+.hamburger span {
+    width: 26px;
+    height: 2px;
+    background: #ffffff;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    display: block;
+}
+.hamburger.toggle span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.hamburger.toggle span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.toggle span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
 
 @media (max-width: 992px) {
     .about-container { grid-template-columns: 1fr; }
