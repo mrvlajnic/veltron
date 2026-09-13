@@ -160,7 +160,7 @@
                 category: "News",
                 cover_image: "Assets/img/Render2.webp",
                 summary: "Autolooks has placed Veltron Auto in the center stage under the Serbian flag alongside historic national automotive legends Yugo and FAP.",
-                content: `## A Historic Context for a Next-Generation Vision\n\nVeltron Auto has received prominent recognition on the global automotive platform **Autolooks**, highlighted as an emerging independent automotive brand and R&D studio positioned alongside historic domestic icons **Yugo** and **FAP** under the Serbian flag.\n\n### Defining the Modern Driver's Car\n\nWhile historic manufacturing focused on utilitarian industrial mobility, Veltron represents the contemporary synthesis of **Emotional Aerodynamics**, proprietary **V-Force propulsion**, and intuitive human-centric cockpit software (**SkyUI**).\n\n> "Our goal is not simply to look back at heritage, but to forge forward into the future of automotive styling and mechanical intelligence from our studio in Belgrade."\n\nStay tuned for ongoing developments as our digital engineering and physical validation phases progress.`,
+                content: `<p><h2>A Historic Context for a Next-Generation Vision</h2></p><p>Veltron Auto has received prominent recognition on the global automotive platform <strong>Autolooks</strong>, highlighted as an emerging independent automotive brand and R&D studio positioned alongside historic domestic icons <strong>Yugo</strong> and <strong>FAP</strong> under the Serbian flag.</p><p><h3>Defining the Modern Driver's Car</h3></p><p>While historic manufacturing focused on utilitarian industrial mobility, Veltron represents the contemporary synthesis of <strong>Emotional Aerodynamics</strong>, proprietary <strong>V-Force propulsion</strong>, and intuitive human-centric cockpit software (<strong>SkyUI</strong>).</p><p><blockquote>"Our goal is not simply to look back at heritage, but to forge forward into the future of automotive styling and mechanical intelligence from our studio in Belgrade."</blockquote></p><p>Stay tuned for ongoing developments as our digital engineering and physical validation phases progress.</p>`,
                 author: "Boris Vlajnić",
                 created_at: new Date().toISOString()
             },
@@ -171,7 +171,7 @@
                 category: "Design",
                 cover_image: "Assets/img/Render2.webp",
                 summary: "Exploring how functional airflow channels, athletic sedan proportions, and pure aesthetic emotion converge in the Veltron V1 SportLine.",
-                content: `## Form Follows Motion\n\nIn modern vehicle design, aerodynamics is too frequently treated as a sterile mathematical compromise—resulting in generic, interchangeable silhouettes.\n\nWith the **Veltron V1 SportLine**, our design studio set out to prove that drag reduction and downforce management can coexist with striking emotional presence.\n\n### Key Design Highlights\n\n* **Low-slung athletic silhouette:** Balancing high-speed laminar stability with classic sedan elegance.\n* **Integrated functional intakes:** Routing cooling air to powertrain components while sculpting muscular surface tension.\n* **SkyUI seamless cockpit:** An interior crafted to eliminate digital noise and center every control around the driver.\n\n*Read more technical updates in forthcoming Veltron Journal publications.*`,
+                content: `<p><h2>Form Follows Motion</h2></p><p>In modern vehicle design, aerodynamics is too frequently treated as a sterile mathematical compromise—resulting in generic, interchangeable silhouettes.</p><p>With the <strong>Veltron V1 SportLine</strong>, our design studio set out to prove that drag reduction and downforce management can coexist with striking emotional presence.</p><p><h3>Key Design Highlights</h3></p><p><ul><li><strong>Low-slung athletic silhouette:</strong> Balancing high-speed laminar stability with classic sedan elegance.</li><li><strong>Integrated functional intakes:</strong> Routing cooling air to powertrain components while sculpting muscular surface tension.</li><li><strong>SkyUI seamless cockpit:</strong> An interior crafted to eliminate digital noise and center every control around the driver.</li></ul></p><p><em>Read more technical updates in forthcoming Veltron Journal publications.</em></p>`,
                 author: "Boris Vlajnić",
                 created_at: new Date(Date.now() - 86400000).toISOString()
             }
@@ -184,27 +184,6 @@
         const journalFilters = document.getElementById('journal-filters');
         const articleReader = document.getElementById('article-reader');
         const journalHero = document.getElementById('journal-hero');
-
-        // Simple Markdown to HTML Parser
-        function parseMarkdown(md) {
-            if (!md) return '';
-            let html = md
-                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-                .replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>')
-                .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-                .replace(/\*(.*)\*/gim, '<em>$1</em>')
-                .replace(/!\[(.*?)\]\((.*?)\)/gim, '<img alt="$1" src="$2" />')
-                .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank" style="color: #ff0000;">$1</a>')
-                .replace(/^\* (.*$)/gim, '<li>$1</li>')
-                .replace(/^\- (.*$)/gim, '<li>$1</li>')
-                .replace(/\n\n+/g, '</p><p>');
-
-            // Fix lists & paragraphs
-            html = html.replace(/(<li>.*<\/li>)/gis, '<ul>$1</ul>');
-            return `<p>${html}</p>`;
-        }
 
         function renderArticles(list) {
             const filtered = currentFilter === 'all' 
@@ -274,10 +253,10 @@
                 coverEl.style.display = 'none';
             }
 
-            // Convert markdown content with resolved image URLs
+            // Content is already HTML, just resolve image URLs
             let bodyContent = article.content || '';
             bodyContent = bodyContent.replace(/\/uploads\//g, `${API_BASE}/uploads/`);
-            document.getElementById('reader-content').innerHTML = parseMarkdown(bodyContent);
+            document.getElementById('reader-content').innerHTML = bodyContent;
 
             // Switch to reader view
             journalGrid.style.display = 'none';
