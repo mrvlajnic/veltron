@@ -220,7 +220,7 @@
                 const res = await fetch(`${API_BASE}/api/journal`);
                 if (res.ok) {
                     const data = await res.json();
-                    if (Array.isArray(data) && data.length > 0) {
+                    if (Array.isArray(data)) {
                         // Resolve relative upload URLs to full backend URLs
                         loadedArticles = data.map(item => {
                             if (item.cover_image && item.cover_image.startsWith('/uploads')) {
@@ -232,7 +232,7 @@
                     }
                 }
             } catch (err) {
-                console.log('Using default cached journal entries:', err);
+                console.error('Failed to fetch articles from API:', err);
             }
         }
 
