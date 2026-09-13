@@ -342,11 +342,19 @@
         min-height: 100vh;
         padding: 80px 20px;
     }
-    .fixed-nav, .scroll-indicator, .section-pagination {
+    .scroll-indicator, .section-pagination {
         display: none;
     }
+    .fixed-nav {
+        top: 20px;
+        right: 20px;
+        gap: 10px;
+        font-size: 0.8rem;
+    }
     .fixed-logo {
-        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 1.2rem;
     }
     .hero-content-detail h1 {
         font-size: 3rem;
