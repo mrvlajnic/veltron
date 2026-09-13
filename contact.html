@@ -190,8 +190,8 @@
                     }
                 } catch (err) {
                     formAlert.style.display = 'block';
-                    formAlert.style.background = 'rgba(255, 0, 0, 0.15)';
-                    formAlert.style.border = '1px solid #ff0000';
+                    formAlert.style.background = 'rgba(var(--primary-red-rgb), 0.15)';
+                    formAlert.style.border = '1px solid var(--primary-red)';
                     formAlert.style.color = '#ff6b6b';
                     formAlert.textContent = err.message || 'Neuspešno slanje. Molimo pokušajte ponovo.';
                 } finally {

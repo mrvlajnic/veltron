@@ -10,7 +10,8 @@
             --bg-black: #050505;
             --card-bg: #121212;
             --border-color: #222222;
-            --primary-red: #ff0000;
+            --primary-red: #D40000;
+            --primary-red-rgb: 212, 0, 0;
             --text-white: #ffffff;
             --text-gray: #999999;
             --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -117,7 +118,7 @@
         }
 
         .card:hover {
-            border-color: rgba(255, 0, 0, 0.4);
+            border-color: rgba(var(--primary-red-rgb), 0.4);
             transform: translateY(-3px);
         }
 

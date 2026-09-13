@@ -1,5 +1,6 @@
 :root {
-    --primary-red: #ff0000;
+    --primary-red: #D40000;
+    --primary-red-rgb: 212, 0, 0;
     --bg-black: #000000;
     --card-bg: #141414;
     --text-white: #ffffff;
@@ -598,10 +599,10 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 .location-ping {
     width: 10px;
     height: 10px;
-    background-color: #ff0000;
+    background-color: var(--primary-red);
     border-radius: 50%;
     margin: 20px auto;
-    box-shadow: 0 0 10px #ff0000;
+    box-shadow: 0 0 10px var(--primary-red);
     animation: pulse 2s infinite;
 }
 
@@ -721,15 +722,15 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 .dot {
     width: 8px;
     height: 8px;
-    background-color: #ff0000;
+    background-color: var(--primary-red);
     border-radius: 50%;
-    box-shadow: 0 0 15px #ff0000;
+    box-shadow: 0 0 15px var(--primary-red);
 }
 
 .ping {
     width: 8px;
     height: 8px;
-    background-color: #ff0000;
+    background-color: var(--primary-red);
     border-radius: 50%;
     position: absolute;
     top: 0;
@@ -838,7 +839,7 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 }
 
 .footer-col ul li a:hover {
-    color: #ff0000; /* Crveni akcenat koji smo definisali */
+    color: var(--primary-red); /* Crveni akcenat koji smo definisali */
 }
 
 .footer-bottom {
@@ -927,7 +928,7 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 }
 
 .alert-title {
-    color: #ff0000; /* Moja prepoznatljiva crvena */
+    color: var(--primary-red); /* Moja prepoznatljiva crvena */
     font-size: 2.5rem;
     letter-spacing: 5px;
     margin-bottom: 20px;
@@ -954,8 +955,8 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 }
 
 .back-link:hover {
-    color: #ff0000;
-    border-color: #ff0000;
+    color: var(--primary-red);
+    border-color: var(--primary-red);
 }
 #gradient-canvas {
     position: fixed;
@@ -1382,9 +1383,9 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 }
 
 .status-active {
-    background: rgba(255, 0, 0, 0.12);
+    background: rgba(var(--primary-red-rgb), 0.12);
     color: #ff5555;
-    border: 1px solid rgba(255, 0, 0, 0.5);
+    border: 1px solid rgba(var(--primary-red-rgb), 0.5);
 }
 
 .status-planned {
@@ -1584,7 +1585,7 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 .sitan-more-btn:hover {
     border-color: var(--primary-red);
     color: var(--primary-red);
-    background: rgba(255, 0, 0, 0.04);
+    background: rgba(var(--primary-red-rgb), 0.04);
 }
 
 .sitan-more-btn:hover .more-arrow {
@@ -1597,7 +1598,7 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
     display: flex;
     align-items: center;
     padding: 150px 8% 100px;
-    background: radial-gradient(circle at 85% 30%, rgba(255, 0, 0, 0.06), transparent 50%),
+    background: radial-gradient(circle at 85% 30%, rgba(var(--primary-red-rgb), 0.06), transparent 50%),
                 linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(5, 5, 5, 1) 100%);
     border-bottom: 1px solid var(--border-color);
 }
@@ -2211,7 +2212,7 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 .journal-filter-btn.active {
     border-color: var(--primary-red);
     color: var(--text-white);
-    background: rgba(255, 0, 0, 0.1);
+    background: rgba(var(--primary-red-rgb), 0.1);
 }
 
 .journal-grid {
@@ -2235,7 +2236,7 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 
 .journal-item-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(255, 0, 0, 0.5);
+    border-color: rgba(var(--primary-red-rgb), 0.5);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
@@ -2278,10 +2279,10 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
     text-transform: uppercase;
     letter-spacing: 1.5px;
     color: var(--primary-red);
-    background: rgba(255, 0, 0, 0.1);
+    background: rgba(var(--primary-red-rgb), 0.1);
     padding: 3px 8px;
     border-radius: 3px;
-    border: 1px solid rgba(255, 0, 0, 0.2);
+    border: 1px solid rgba(var(--primary-red-rgb), 0.2);
 }
 
 .journal-item-date {
