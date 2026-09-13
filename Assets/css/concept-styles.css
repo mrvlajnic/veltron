@@ -1,0 +1,362 @@
+:root {
+    --veltron-red: #D40000;
+}
+
+/* Base styles for the concepts showcase */
+.concept-page-body {
+    background-color: var(--bg-black);
+    color: var(--text-white);
+    margin: 0;
+    padding: 0;
+}
+
+/* concepts.html Styles */
+.concepts-grid-section {
+    padding: 120px 5%;
+    min-height: 80vh;
+}
+.concepts-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+.concepts-header h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+.concepts-header p {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.concept-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+}
+.concept-card:hover {
+    border-color: var(--veltron-red);
+    transform: translateY(-5px);
+}
+
+.concept-card-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+.concept-card:hover .concept-card-img {
+    filter: brightness(1.1);
+}
+
+.concept-card-content {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.concept-card-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.concept-card-tagline {
+    color: var(--text-gray);
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.concept-card-action {
+    color: var(--veltron-red);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Empty State Card */
+.concept-card.empty-state {
+    border: 1px dashed var(--border-color);
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    pointer-events: none;
+}
+.concept-card.empty-state .concept-card-title {
+    color: var(--text-gray);
+    margin: 0;
+}
+
+
+/* concept-v1-sportline.html Styles */
+.detail-page-body {
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    height: 100vh;
+    scroll-behavior: smooth;
+}
+
+.detail-section {
+    height: 100vh;
+    width: 100vw;
+    scroll-snap-align: start;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Fixed Overlays */
+.fixed-nav {
+    position: fixed;
+    top: 30px;
+    right: 40px;
+    z-index: 100;
+    display: flex;
+    gap: 20px;
+}
+.fixed-nav a {
+    color: var(--text-white);
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+.fixed-nav a:hover {
+    color: var(--veltron-red);
+}
+
+.fixed-logo {
+    position: fixed;
+    top: 30px;
+    left: 40px;
+    z-index: 100;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-white);
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+
+.scroll-indicator {
+    position: fixed;
+    left: 40px;
+    bottom: 40px;
+    z-index: 100;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-gray);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.scroll-indicator::before {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 40px;
+    background: var(--text-gray);
+}
+
+.section-pagination {
+    position: fixed;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.section-pagination .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-color);
+    transition: background 0.3s;
+    text-decoration: none;
+}
+.section-pagination .dot.active {
+    background: var(--veltron-red);
+}
+
+/* Section Specifics */
+.bg-diagonal {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1;
+    background: linear-gradient(135deg, var(--bg-black) 40%, #0f0f0f 40.1%);
+}
+
+.hero-content-detail {
+    text-align: center;
+    z-index: 2;
+}
+.hero-content-detail h1 {
+    font-size: 5rem;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin-bottom: 10px;
+}
+.hero-content-detail p {
+    font-size: 1.5rem;
+    color: var(--text-gray);
+    margin-bottom: 30px;
+}
+.btn-primary {
+    display: inline-block;
+    border: 1px solid var(--veltron-red);
+    color: var(--veltron-red);
+    padding: 12px 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: transparent;
+    cursor: pointer;
+}
+.btn-primary:hover {
+    background: var(--veltron-red);
+    color: var(--text-white);
+}
+
+/* Gallery Section */
+.gallery-container {
+    width: 80%;
+    max-width: 1200px;
+    position: relative;
+}
+.gallery-img {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+    border-radius: 4px;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+}
+.gallery-counter {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-gray);
+    letter-spacing: 2px;
+}
+
+/* Split Section (Design Intent / Features) */
+.split-section {
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    align-items: center;
+    gap: 50px;
+}
+.split-text {
+    flex: 1;
+}
+.split-text h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+.split-text p {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+.split-img {
+    flex: 1;
+}
+.split-img img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Contact Footer Section */
+.footer-detail {
+    text-align: center;
+}
+.footer-detail h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+.footer-detail .btn-primary {
+    margin-bottom: 40px;
+}
+.footer-simple-info {
+    margin-top: 40px;
+    color: var(--text-gray);
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+.footer-simple-info a {
+    color: var(--text-gray);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.footer-simple-info a:hover {
+    color: var(--veltron-red);
+}
+
+@media (max-width: 768px) {
+    .detail-page-body {
+        scroll-snap-type: none;
+        overflow-y: auto;
+    }
+    .detail-section {
+        height: auto;
+        min-height: 100vh;
+        padding: 80px 20px;
+    }
+    .fixed-nav, .scroll-indicator, .section-pagination {
+        display: none;
+    }
+    .fixed-logo {
+        position: absolute;
+    }
+    .hero-content-detail h1 {
+        font-size: 3rem;
+    }
+    .split-section {
+        flex-direction: column;
+        width: 100%;
+    }
+    .gallery-img {
+        clip-path: none;
+        height: 40vh;
+    }
+}

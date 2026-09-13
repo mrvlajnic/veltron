@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veltron V1 SportLine | Concept Showcase</title>
+    
+    <link rel="stylesheet" href="Assets/css/styles.css">
+    <link rel="stylesheet" href="Assets/css/concept-styles.css">
+    <link rel="icon" type="image/x-icon" href="Assets/img/favicon.ico">
+</head>
+<body class="detail-page-body concept-page-body">
+
+    <!-- Fixed Overlays -->
+    <a href="index.html" class="fixed-logo">V</a>
+    
+    <nav class="fixed-nav">
+        <a href="concepts.html">Back to Concepts</a>
+        <a href="#">EN</a>
+    </nav>
+    
+    <div class="scroll-indicator">
+        Scroll Down
+    </div>
+    
+    <div class="section-pagination" id="section-pagination">
+        <a href="#section-01" class="dot active"></a>
+        <a href="#section-02" class="dot"></a>
+        <a href="#section-03" class="dot"></a>
+        <a href="#section-04" class="dot"></a>
+        <a href="#section-05" class="dot"></a>
+    </div>
+
+    <!-- Section 01: Hero -->
+    <section class="detail-section" id="section-01">
+        <div class="bg-diagonal"></div>
+        <div class="hero-content-detail">
+            <h1>V1 SportLine</h1>
+            <p>The Genesis of Veltron Performance</p>
+            <a href="journal.html" class="btn-primary">Follow Development</a>
+        </div>
+    </section>
+
+    <!-- Section 02: Gallery Carousel -->
+    <section class="detail-section" id="section-02">
+        <div class="bg-diagonal"></div>
+        <div class="gallery-container">
+            <img src="Assets/img/Render2.webp" alt="V1 SportLine Concept Render" class="gallery-img">
+            <!-- Example counter; for a real carousel you'd use JS to cycle images -->
+            <div class="gallery-counter">&lt; 01 / 03 &gt;</div>
+        </div>
+    </section>
+
+    <!-- Section 03: Design Intent (Split Layout) -->
+    <section class="detail-section" id="section-03">
+        <div class="split-section">
+            <div class="split-text">
+                <h2>Design Intent</h2>
+                <p>
+                    The V1 SportLine is a pure exploration of Veltron's design philosophy. 
+                    We are currently prioritizing aerodynamic efficiency, emotional presence, 
+                    and a driver-centric architecture over pure numbers. This concept focuses 
+                    on a hyper-performance aesthetic combined with intelligent, flowing lines, 
+                    laying the groundwork for future physical prototypes. 
+                </p>
+            </div>
+            <div class="split-img">
+                <img src="Assets/img/original_engine.webp" alt="Design Intent Render">
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 04: Featured Detail -->
+    <section class="detail-section" id="section-04">
+        <div class="bg-diagonal" style="transform: scaleX(-1);"></div>
+        <div class="split-section">
+            <div class="split-img">
+                <img src="Assets/img/16154.webp" alt="Design Detail">
+            </div>
+            <div class="split-text">
+                <h2>Targeted Aerodynamics</h2>
+                <p>
+                    From the sweeping roofline to the aggressive front profile, every 
+                    surface is sculpted with the intention of cutting through air seamlessly. 
+                    Our focus is on balancing downforce and drag to create an exhilarating, 
+                    stable driving experience in future production phases.
+                </p>
+                <a href="journal.html" class="btn-primary" style="margin-top:20px;">Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 05: Closing CTA & Footer -->
+    <section class="detail-section" id="section-05">
+        <div class="footer-detail">
+            <h2>Ready to follow the journey?</h2>
+            <a href="journal.html" class="btn-primary">Join the Journal</a>
+            
+            <div class="footer-simple-info">
+                <a href="mailto:office@veltroncars.com">Email Us</a>
+                <a href="construction.html">Instagram</a>
+                <a href="construction.html">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Simple Intersection Observer to highlight the active section dot
+        const sections = document.querySelectorAll('.detail-section');
+        const dots = document.querySelectorAll('.section-pagination .dot');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const currentId = entry.target.id;
+                    dots.forEach(dot => {
+                        dot.classList.remove('active');
+                        if (dot.getAttribute('href') === '#' + currentId) {
+                            dot.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
