@@ -4,7 +4,7 @@
     --bg-black: #000000;
     --card-bg: #141414;
     --text-white: #ffffff;
-    --text-gray: #999999;
+    --text-gray: #b0b0b0;
     --border-color: #222222;
     --transition: all 0.3s ease;
 }
@@ -1821,7 +1821,7 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 
 .visual-quote {
     font-size: 0.9rem;
-    color: #999;
+    color: var(--text-gray);
     font-style: italic;
     line-height: 1.6;
 }
