@@ -3,6 +3,9 @@
 const { test, before, after } = require('node:test');
 const assert = require('node:assert/strict');
 const { createAiLabApp } = require('../server/ai-lab-app');
+const { loadSupportConfig } = require('../server/validate-config');
+
+const CONFIG_VERSION = loadSupportConfig().config.version;
 
 let server;
 let baseUrl;
@@ -14,7 +17,7 @@ before(async () => {
   delete process.env.OPENROUTER_API_KEY;
   originalFetch = global.fetch;
 
-  const app = createAiLabApp();
+  const app = createAiLabApp({ rateLimit: 1000 });
   await new Promise((resolve) => {
     server = app.listen(0, '127.0.0.1', resolve);
   });
@@ -111,6 +114,29 @@ test('history with invalid role is rejected', async () => {
   assert.equal(res.status, 400);
 });
 
+test('honeypot field filled by a bot is rejected generically', async () => {
+  const res = await postChat({ message: 'hi', website_hp: 'http://spam.example' });
+  assert.equal(res.status, 400);
+  const data = await res.json();
+  assert.equal(data.code, 'VALIDATION_ERROR');
+  assert.equal(data.error, 'Invalid request.');
+  assert.ok(!data.error.toLowerCase().includes('honeypot'), 'rejection must not reveal the defense');
+});
+
+test('empty honeypot (human path) is accepted by validation', async () => {
+  process.env.OPENROUTER_API_KEY = 'sk-test-key';
+  mockOpenRouter(async () => {
+    throw new Error('stop-after-validation');
+  });
+  try {
+    const res = await postChat({ message: 'hello', website_hp: '' });
+    assert.equal(res.status, 500);
+  } finally {
+    delete process.env.OPENROUTER_API_KEY;
+    global.fetch = originalFetch;
+  }
+});
+
 test('malformed JSON body is rejected by body parser', async () => {
   const res = await fetch(`${baseUrl}/api/ai-lab/chat`, {
     method: 'POST',
@@ -165,7 +191,7 @@ test('valid request reaches the provider and returns the model identifier', asyn
     const data = await res.json();
     assert.equal(data.reply, 'Hello from the model.');
     assert.equal(data.model, 'some-provider/some-model');
-    assert.equal(data.config_version, '1.0.0');
+    assert.equal(data.config_version, CONFIG_VERSION);
     assert.equal(data.usage.total_tokens, 15);
   } finally {
     delete process.env.OPENROUTER_API_KEY;
@@ -209,13 +235,13 @@ test('provider timeout is handled', async () => {
 });
 
 test('rate limiting returns 429 after the limit is exceeded', async () => {
-  const app = createAiLabApp();
+  const app = createAiLabApp({ rateLimit: 3 });
   let limitedServer;
   await new Promise((resolve) => { limitedServer = app.listen(0, '127.0.0.1', resolve); });
   const limitedBase = `http://127.0.0.1:${limitedServer.address().port}`;
   try {
     let lastStatus = null;
-    for (let i = 0; i < 25; i += 1) {
+    for (let i = 0; i < 6; i += 1) {
       const res = await fetch(`${limitedBase}/api/ai-lab/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

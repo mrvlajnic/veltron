@@ -30,6 +30,11 @@ test('chat interface has message log, input, send, and clear controls', () => {
   assert.ok(html.includes('id="chat-clear"'));
 });
 
+test('chat form includes a hidden honeypot field for bot trapping', () => {
+  assert.ok(html.includes('name="website_hp"'));
+  assert.ok(html.includes('display:none'));
+});
+
 test('sample questions are present and clickable', () => {
   const sampleCount = (html.match(/ai-lab-sample-btn/g) || []).length;
   assert.ok(sampleCount >= 4, 'expected at least 4 sample question buttons');

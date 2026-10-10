@@ -33,13 +33,22 @@ with a privileged credential, so the server is treated as a trust boundary.
 - The client's `maxlength` attribute is a convenience only; enforcement is on the server.
 
 ### Rate limiting
-- Fixed-window limiter keyed by client IP: **20 requests / 60 s** per IP for `/api/ai-lab/chat`.
+- Fixed-window limiter keyed by client IP: **10 requests / 60 s** per IP for `/api/ai-lab/chat`
+  (override with `AI_LAB_RATE_LIMIT`).
 - Exceeding the limit returns HTTP 429 with `X-RateLimit-*` headers and a clear message.
 - **Honest limitation:** the limiter uses process-local memory. On a single Render instance this
   works as intended; in a horizontally scaled deployment each instance would count independently,
   so the effective global limit multiplies by instance count. It is therefore **not** claimed to be
   production-grade global rate limiting. For multi-instance deployments, back it with a shared store
   (e.g. Redis) or platform-level controls.
+
+### Anti-bot honeypot
+- The chat form contains a hidden `website_hp` input (same pattern as the existing contact form)
+  that human users never see or fill.
+- If the field is non-empty on submission, the request is rejected with HTTP 400 and the generic
+  message `Invalid request.` — deliberately not revealing that a honeypot exists, so bots cannot
+  adapt by skipping the field. Bots that auto-fill forms or replay payloads trip it reliably.
+- The client sends the (empty) honeypot value with every request; a human path is unaffected.
 
 ### Model and proxy restrictions
 - The client may request only models on the server's allowlist (derived from `OPENROUTER_MODEL` /

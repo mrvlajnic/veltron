@@ -53,7 +53,7 @@ assistant. The design constraint was to integrate with the current deployment �
 2. The server validates the body: `message` is a non-empty string ≤ 2000 characters; `history`
    (optional) is an array of ≤ 20 `{ role: "user" | "assistant", content }` entries, each ≤ 2000
    characters. Anything else is rejected with HTTP 400.
-3. The server checks the per-IP rate limit (20 requests / 60 s). Exceeding it returns HTTP 429.
+3. The server checks the per-IP rate limit (10 requests / 60 s, `AI_LAB_RATE_LIMIT` overridable) and a hidden honeypot field that humans never fill. Excess requests return HTTP 429; a filled honeypot returns HTTP 400.
 4. The server checks for `OPENROUTER_API_KEY`. If missing, it returns HTTP 503 with
    `code: "NOT_CONFIGURED"` — the client shows a clear notice and never fabricates a response.
 5. The server builds the message list: one `system` message generated from the configuration,

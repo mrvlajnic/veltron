@@ -86,6 +86,8 @@
                 </div>
 
                 <form class="ai-lab-chat-form" id="chat-form">
+                    <!-- Anti-Bot Honeypot Trap (Hidden from human users) -->
+                    <input type="text" name="website_hp" style="display:none !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
                     <label class="ai-lab-visually-hidden" for="chat-input">Message</label>
                     <textarea
                         id="chat-input"
@@ -191,7 +193,7 @@
                         Live model responses are scored against expected behaviors and recorded with
                         the test case ID, model identifier, configuration version, and outcome.
                     </p>
-                    <span class="ai-lab-eval-status is-pass" id="live-status">8/8 behavioral cases passed — 2026-10-11, google/gemini-2.5-flash, config v1.0.0 — see docs/EVALUATION.md</span>
+                    <span class="ai-lab-eval-status is-pass" id="live-status">8/8 behavioral cases passed — 2026-10-11, google/gemini-2.5-flash, config v1.1.0 — see docs/EVALUATION.md</span>
                 </div>
             </div>
         </section>

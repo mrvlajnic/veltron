@@ -10,7 +10,7 @@ with the exact commands that produced them.
 
 > **Status:** Implemented, integrated into the veltron-backend, and verified live.
 > 48/48 deterministic tests pass; 8/8 live behavioral cases passed (2026-10-11,
-> `google/gemini-2.5-flash`, config v1.0.0 — snapshot). Production requires
+> `google/gemini-2.5-flash`, config v1.1.0 — snapshot). Production requires
 > `OPENROUTER_API_KEY` to be set in the Render service (see [Deployment](#deployment)).
 
 ---

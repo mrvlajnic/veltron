@@ -120,7 +120,12 @@
         setBusy(true);
         setStatus('loading', 'Waiting for the model to respond…');
 
-        const payload = { message, history };
+        const honeypot = els.form.querySelector('[name="website_hp"]');
+        const payload = {
+            message,
+            history,
+            website_hp: honeypot ? honeypot.value : '',
+        };
         try {
             const res = await fetch(`${API_BASE}/api/ai-lab/chat`, {
                 method: 'POST',

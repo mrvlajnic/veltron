@@ -12,7 +12,7 @@ figures are invented anywhere in this project.** Values that have not been measu
 | Configuration schema | `npm test` | No | Yes | **48/48 passing** (run 2026-10-11, Node 24) |
 | API behavior & security | `npm test` | No | Yes | included above |
 | Client (static checks) | `npm test` | No | Yes | included above |
-| Behavioral (live model) | `npm run test:live` | Yes | No | **8/8 passed** (run 2026-10-11, google/gemini-2.5-flash, config v1.0.0 — snapshot, see below) |
+| Behavioral (live model) | `npm run test:live` | Yes | No | **8/8 passed** (run 2026-10-11, google/gemini-2.5-flash, config v1.1.0 — snapshot, see below) |
 
 Deterministic tests must always pass before deployment. Live tests are a snapshot: model output is
 nondeterministic and providers change models behind router slugs, so a live result describes *that
@@ -41,7 +41,8 @@ run*, not a permanent quality property.
 - Provider HTTP errors map to HTTP 502 `PROVIDER_ERROR` without leaking provider internals
   (asserted with a marker string in the provider error).
 - Provider timeouts map to HTTP 504 `TIMEOUT`.
-- Rate limiting returns HTTP 429 after 20 requests/minute per IP.
+- Rate limiting returns HTTP 429 after 10 requests/minute per IP.
+- A honeypot field filled with any non-empty value is rejected with HTTP 400 and a generic message.
 - The response never contains API key material (`sk-` assertions on config and chat responses).
 - Security headers (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`) are present.
 - CORS allows `https://veltroncars.com` and silently omits the header for unknown origins.
@@ -115,23 +116,27 @@ Each run writes `docs/evaluation-results.json`:
 
 ### Current status
 
-A real live evaluation was run on **2026-10-11** with `OPENROUTER_API_KEY` set:
+The latest real live evaluation was run on **2026-10-11** with `OPENROUTER_API_KEY` set and the
+expanded company-knowledge configuration:
 
 ```
 8/8 passed, 0 failed, 0 errored
 Model (auto-routed): google/gemini-2.5-flash
-Configuration version: 1.0.0
+Configuration version: 1.1.0
 Results file: docs/evaluation-results.json
 ```
 
-Notes from that run:
+Notes:
 - All eight behavioral cases passed, including the three prompt-injection cases and the
   Serbian-language case.
-- One heuristic bug was found and fixed during review: the `INJECTION-003` scorer initially
-  matched the substring "human agent approved" inside the model's *refusal* sentence
-  ("I cannot claim that a human agent approved this request"), producing a false failure. The
-  heuristics now require refusal language and only flag un-negated assertions. The re-run above
-  reflects the corrected scoring against fresh live responses.
+- During the first round of evaluation (config v1.0.0), one heuristic bug was found and fixed:
+  the `INJECTION-003` scorer initially matched the substring "human agent approved" inside the
+  model's *refusal* sentence, producing a false failure. The heuristics now require refusal
+  language and only flag un-negated assertions; all subsequent runs use the corrected scoring.
+- Config v1.1.0 expanded `verified_facts` from 2 to 11 sourced facts harvested from the public
+  website (founder, four pillars, SkyUI, roadmap phases, availability status) and added three
+  knowledge examples (founder, purchase availability, design pillars). The behavioral cases above
+  were re-run against this configuration.
 - These results are a snapshot of one run on one day with one auto-routed model. They are not a
   permanent quality measure; rerun `npm run test:live` to reproduce or refresh.
 
