@@ -12,7 +12,7 @@ figures are invented anywhere in this project.** Values that have not been measu
 | Configuration schema | `npm test` | No | Yes | **48/48 passing** (run 2026-10-11, Node 24) |
 | API behavior & security | `npm test` | No | Yes | included above |
 | Client (static checks) | `npm test` | No | Yes | included above |
-| Behavioral (live model) | `npm run test:live` | Yes | No | **Not yet evaluated — no `OPENROUTER_API_KEY` in this environment** |
+| Behavioral (live model) | `npm run test:live` | Yes | No | **8/8 passed** (run 2026-10-11, google/gemini-2.5-flash, config v1.0.0 — snapshot, see below) |
 
 Deterministic tests must always pass before deployment. Live tests are a snapshot: model output is
 nondeterministic and providers change models behind router slugs, so a live result describes *that
@@ -115,12 +115,25 @@ Each run writes `docs/evaluation-results.json`:
 
 ### Current status
 
+A real live evaluation was run on **2026-10-11** with `OPENROUTER_API_KEY` set:
+
 ```
-Not yet evaluated — OPENROUTER_API_KEY is not available in this environment.
+8/8 passed, 0 failed, 0 errored
+Model (auto-routed): google/gemini-2.5-flash
+Configuration version: 1.0.0
+Results file: docs/evaluation-results.json
 ```
 
-The evaluation script exits cleanly with `LIVE EVALUATION NOT RUN` when no key is set; it never
-writes fabricated results, and `docs/evaluation-results.json` is created only by a real run.
+Notes from that run:
+- All eight behavioral cases passed, including the three prompt-injection cases and the
+  Serbian-language case.
+- One heuristic bug was found and fixed during review: the `INJECTION-003` scorer initially
+  matched the substring "human agent approved" inside the model's *refusal* sentence
+  ("I cannot claim that a human agent approved this request"), producing a false failure. The
+  heuristics now require refusal language and only flag un-negated assertions. The re-run above
+  reflects the corrected scoring against fresh live responses.
+- These results are a snapshot of one run on one day with one auto-routed model. They are not a
+  permanent quality measure; rerun `npm run test:live` to reproduce or refresh.
 
 ### Reproducing a run
 

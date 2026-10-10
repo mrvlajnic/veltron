@@ -98,30 +98,24 @@ used as a general-purpose proxy.
 The `ai-lab/` directory is part of the static site. Merging to `main` publishes it at
 `https://veltroncars.com/ai-lab/`. No build step, no new hosting.
 
-### Backend (requires one-time human action)
+### Backend (integrated; one Render setting remains)
 
-The backend code lives in `server/` in this repository. The existing Render backend is a separate
-repository, so deployment means adding these files to that repository (or deploying `server/` as
-its own Render web service):
+The AI Lab router has been integrated into the existing backend repository
+(`mrvlajnic/veltron-backend`) as `ai-lab/ai-lab-app.js` + `ai-lab/validate-config.js` +
+`config/support-assistant.json`, mounted in `server.js`:
 
-1. Copy `server/ai-lab-app.js` and `server/validate-config.js` into the backend repository.
-2. Copy `config/support-assistant.json` alongside them (the default path resolves to
-   `<repo>/config/support-assistant.json`).
-3. Mount the router in the existing Express app:
+```js
+const { createAiLabRouter } = require('./ai-lab/ai-lab-app');
+app.use('/api/ai-lab', createAiLabRouter());
+```
 
-   ```js
-   const { createAiLabRouter } = require('./ai-lab-app');
-   app.use('/api/ai-lab', createAiLabRouter());
-   ```
+If the AI Lab configuration is invalid at startup, only `/api/ai-lab/*` degrades to HTTP 503 —
+the contact form, journal, and admin API are unaffected.
 
-   Or run it standalone with `node server/ai-lab-server.js` (uses `PORT`, default 5000).
-4. Set the environment variable `OPENROUTER_API_KEY` in the Render dashboard (and optionally
-   `OPENROUTER_MODEL`). Never commit the key.
-5. Verify: `GET https://<backend>/api/ai-lab/config` returns the configuration JSON with
-   `"configured": true`.
-
-The frontend already targets `https://veltron-backend.onrender.com` in production, so no client
-change is needed once the route exists on that service.
+**Remaining production step:** set the environment variable `OPENROUTER_API_KEY` (and optionally
+`OPENROUTER_MODEL`) in the Render dashboard for the `veltron-backend` service. The frontend
+already targets `https://veltron-backend.onrender.com`, so no client change is needed once the
+variable is set.
 
 ## What is not stored
 
