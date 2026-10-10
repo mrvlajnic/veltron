@@ -1,0 +1,15 @@
+# Environment secrets — never commit
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+
+# Evaluation output (generated per-run; regenerate with npm run test:live)
+# docs/evaluation-results.json is intentionally committed when produced by a real run.
+
+# OS / editor noise
+Thumbs.db
+.DS_Store
+*.log
