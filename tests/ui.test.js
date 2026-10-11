@@ -143,3 +143,11 @@ test('widget CSS is scoped and respects reduced motion', () => {
   assert.ok(widgetCss.includes('prefers-reduced-motion'));
   assert.ok(widgetJs.includes("key === 'Escape'"));
 });
+
+test('send button element does not shadow the send() function', () => {
+  // Regression guard: the button was once declared `var send`, which shadowed
+  // `function send(text)` and broke every submit with "send is not a function".
+  assert.ok(widgetJs.includes('var sendBtn = el(\'button\', \'vac-send\''), 'send button must be named sendBtn');
+  assert.ok(!/var send\s*=/.test(widgetJs), 'no variable named `send` may be declared');
+  assert.ok(widgetJs.includes('function send(text)'), 'the send() message function must exist');
+});

@@ -102,12 +102,12 @@
   input.placeholder = 'Ask about Veltron or this page…';
   input.maxLength = 2000;
   input.setAttribute('aria-label', 'Message');
-  var send = el('button', 'vac-send', 'Send');
-  send.type = 'submit';
-  send.disabled = true;
+  var sendBtn = el('button', 'vac-send', 'Send');
+  sendBtn.type = 'submit';
+  sendBtn.disabled = true;
   form.appendChild(honeypot);
   form.appendChild(input);
-  form.appendChild(send);
+  form.appendChild(sendBtn);
 
   var foot = el('div', 'vac-foot', 'Experimental AI · may be inaccurate · not an official support channel');
 
@@ -223,7 +223,7 @@
 
   // ---- chat ----
   function updateSend() {
-    send.disabled = busy || input.value.trim().length === 0;
+    sendBtn.disabled = busy || input.value.trim().length === 0;
   }
 
   function send(text) {
