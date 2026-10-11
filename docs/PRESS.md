@@ -58,4 +58,4 @@ Kroz ovaj projekat učim kako se jedan jezički model pretvara u nešto što li�
 
 Želim da od ovoga napravim nešto što stvarno koristi malim prodavnicama — jednostavno, jeftino i pouzdano. Ne preko noći i ne sa obećanjima koja ne mogu da potkrepim. Korak po korak, sa javno vidljivim napretkom, kao što je i ovaj sajt nastao.
 
-Kontakt za medije i dodatna pitanja: [ovde uneti kontakt osobu/ime] — office@veltroncars.com
+Kontakt za medije i dodatna pitanja: Boris Vlajnic — office@veltroncars.com
