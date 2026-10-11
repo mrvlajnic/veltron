@@ -450,3 +450,48 @@ test('normalizeSitePath enforces the allowlist', async () => {
   assert.throws(() => normalizeSitePath('https://evil.example.com/'));
   assert.throws(() => normalizeSitePath('/not-a-real-page.html'));
 });
+
+test('page context from the chat widget is added to the system prompt', async () => {
+  process.env.OPENROUTER_API_KEY = 'sk-test-key';
+  let systemPrompt = null;
+  mockOpenRouter(async (_url, opts) => {
+    const body = JSON.parse(opts.body);
+    systemPrompt = body.messages[0].content;
+    return new Response(JSON.stringify({
+      model: 'm',
+      choices: [{ message: { role: 'assistant', content: 'ok' } }],
+    }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+  });
+  try {
+    const res = await postChat({ message: 'hi', page: '/vision.html' });
+    assert.equal(res.status, 200);
+    assert.ok(systemPrompt.includes('currently viewing /vision.html'));
+  } finally {
+    delete process.env.OPENROUTER_API_KEY;
+    global.fetch = originalFetch;
+  }
+});
+
+test('malformed page context is ignored, not echoed into the prompt', async () => {
+  process.env.OPENROUTER_API_KEY = 'sk-test-key';
+  let systemPrompt = null;
+  mockOpenRouter(async (_url, opts) => {
+    const body = JSON.parse(opts.body);
+    systemPrompt = body.messages[0].content;
+    return new Response(JSON.stringify({
+      model: 'm',
+      choices: [{ message: { role: 'assistant', content: 'ok' } }],
+    }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+  });
+  try {
+    const res = await postChat({ message: 'hi', page: 'javascript:alert(1)//' });
+    assert.equal(res.status, 200);
+    assert.ok(!systemPrompt.includes('javascript:'));
+    const res2 = await postChat({ message: 'hi' });
+    assert.equal(res2.status, 200);
+    assert.ok(!systemPrompt.includes('currently viewing'));
+  } finally {
+    delete process.env.OPENROUTER_API_KEY;
+    global.fetch = originalFetch;
+  }
+});

@@ -90,3 +90,56 @@ test('responsive and accessibility basics are present', () => {
   assert.ok(css.includes('@media (max-width: 720px)'));
   assert.ok(html.includes('maxlength="2000"'));
 });
+
+// --- Site-wide chat widget ---
+
+const widgetJs = fs.readFileSync(path.join(ROOT, 'Assets', 'js', 'ai-chat-widget.js'), 'utf8');
+const widgetCss = fs.readFileSync(path.join(ROOT, 'Assets', 'css', 'ai-chat-widget.css'), 'utf8');
+
+const WIDGET_PAGES = [
+  'index.html', 'vision.html', 'concepts.html', 'concept-v1-sportline.html',
+  'construction.html', 'journal.html', 'about.html', 'contact.html',
+];
+
+test('widget is included on all public pages', () => {
+  for (const page of WIDGET_PAGES) {
+    const content = fs.readFileSync(path.join(ROOT, page), 'utf8');
+    assert.ok(content.includes('Assets/css/ai-chat-widget.css'), `${page} missing widget CSS`);
+    assert.ok(content.includes('Assets/js/ai-chat-widget.js'), `${page} missing widget script`);
+  }
+});
+
+test('widget is not included on the AI Lab playground page', () => {
+  assert.ok(!html.includes('ai-chat-widget.js'), 'ai-lab page has the full playground; widget must not double up');
+});
+
+test('widget calls the server API, never OpenRouter, and has no key material', () => {
+  assert.ok(widgetJs.includes('/api/ai-lab/chat'));
+  assert.ok(widgetJs.includes('/api/ai-lab/config'));
+  assert.ok(!widgetJs.includes('openrouter.ai'));
+  assert.ok(!widgetJs.includes('sk-'));
+  assert.ok(!widgetJs.includes('OPENROUTER_API_KEY'));
+});
+
+test('widget renders untrusted content with textContent, not innerHTML', () => {
+  assert.ok(widgetJs.includes('textContent'));
+  const innerHtmlCalls = widgetJs.match(/innerHTML\s*=(?!\s*'')/g) || [];
+  assert.equal(innerHtmlCalls.length, 0, 'widget must not assign innerHTML with dynamic content');
+});
+
+test('widget sends the current page for page-aware answers', () => {
+  assert.ok(widgetJs.includes("page: window.location.pathname"));
+});
+
+test('widget includes a honeypot field and error-state handling', () => {
+  assert.ok(widgetJs.includes('website_hp'));
+  for (const code of ['RATE_LIMITED', 'NOT_CONFIGURED', 'PROVIDER_ERROR', 'TIMEOUT']) {
+    assert.ok(widgetJs.includes(code), `widget must handle ${code}`);
+  }
+});
+
+test('widget CSS is scoped and respects reduced motion', () => {
+  assert.ok(widgetCss.includes('.vac-'));
+  assert.ok(widgetCss.includes('prefers-reduced-motion'));
+  assert.ok(widgetJs.includes("key === 'Escape'"));
+});

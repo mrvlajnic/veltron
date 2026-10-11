@@ -85,6 +85,27 @@ current site content without anyone maintaining page text in the JSON configurat
 - Stable company facts still come from `verified_facts`; browsing is for the latest page content
   and explicit "check the site" requests.
 
+## Site-wide chat widget
+
+Every public page (`index`, `vision`, `concepts`, `concept-v1-sportline`, `construction`,
+`journal`, `about`, `contact`) includes a floating assistant widget
+(`Assets/js/ai-chat-widget.js` + `Assets/css/ai-chat-widget.css`). The AI Lab playground page
+(`/ai-lab/`) deliberately does **not** load it, so the full interface is never doubled up.
+
+- A launcher bubble sits in the lower-right corner with an "Ask me anything about Veltron" hint
+  pill. Clicking it opens a themed chat panel (welcome message, "What's on this page?" chip,
+  message log, input + send, clear, close, Escape-to-close).
+- The widget calls the same `/api/ai-lab/chat` and `/api/ai-lab/config` endpoints as the AI Lab
+  page. It never talks to OpenRouter directly and holds no API key.
+- **Page awareness:** each request includes `page: window.location.pathname`. The server appends a
+  short line to the system prompt naming the page the visitor is on, so "what's on this page?"
+  resolves to that page (and may trigger `browse_veltron_site` for exact content). The `page`
+  value is validated against a safe path charset and silently dropped if malformed.
+- Anti-abuse matches the playground: hidden honeypot field, the same 10 req/min per-IP rate limit,
+  message/history length caps, `textContent`-only rendering, and the same error-state handling.
+- Conversation history is kept in `sessionStorage` (≤ 20 messages) so it survives navigation
+  between pages within a tab; the server still stores nothing.
+
 ## Configuration loading and validation
 
 `config/support-assistant.json` is loaded once at server startup by `server/validate-config.js`,
