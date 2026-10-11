@@ -53,6 +53,11 @@ implemented system.
   receive English or degraded responses.
 - **No memory across sessions.** History lives in the browser tab only (≤20 messages). Reloading
   the page or clicking "Clear" starts a blank conversation. The server stores nothing.
+- **Site browsing sees only published static pages.** The `browse_veltron_site` tool fetches an
+  allowlisted set of public veltroncars.com pages, strips them to text, and caches results for
+  5 minutes — it cannot browse the wider web, read the Journal subdomain, or see unpublished or
+  personalized content. Whether the model chooses to browse depends on the routed model's
+  tool-calling ability; on failure it falls back to verified facts only.
 
 ## Evaluation limitations
 

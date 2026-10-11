@@ -58,11 +58,32 @@ assistant. The design constraint was to integrate with the current deployment �
    `code: "NOT_CONFIGURED"` — the client shows a clear notice and never fabricates a response.
 5. The server builds the message list: one `system` message generated from the configuration,
    then the sanitized history, then the current user message.
-6. The server calls OpenRouter with a 45-second timeout and `max_tokens: 1024`.
+6. The server calls OpenRouter with a 45-second timeout and `max_tokens: 1024`, offering a
+   `browse_veltron_site` tool (see below). If the model calls the tool, the server fetches the page,
+   returns its text to the model, and requests the final answer (up to 3 tool rounds).
 7. On success, the server returns the reply, the **actual model identifier** from the provider
-   response, token usage, and the configuration version.
+   response, token usage, the configuration version, and the list of site pages that were browsed
+   for this answer (`browsed_pages`).
 8. On provider failure, the server returns a safe, generic error (HTTP 502/504) without
    forwarding provider internals.
+
+## Live site browsing (tool calling)
+
+The assistant can read the **live** veltroncars.com pages during a conversation, so visitors get
+current site content without anyone maintaining page text in the JSON configuration:
+
+- The server offers one tool, `browse_veltron_site({ path })`, with `path` constrained by an enum
+  of public site pages (`/vision.html`, `/construction.html`, …) defined in code.
+- When the model calls the tool, the backend fetches `https://veltroncars.com<path>` with an 8 s
+  timeout, strips HTML to plain text (scripts/styles removed), truncates to ~8 000 characters, and
+  appends it to the conversation as a tool result. The model then answers from that text.
+- Responses are cached in-memory per page for 5 minutes (max 30 entries) to avoid repeated fetches.
+- The reply includes `browsed_pages` so the UI can show which pages were consulted; the model is
+  instructed to note when it checked the live site.
+- If the provider or routed model does not support tool calling, the server degrades to a plain
+  completion using only the verified facts.
+- Stable company facts still come from `verified_facts`; browsing is for the latest page content
+  and explicit "check the site" requests.
 
 ## Configuration loading and validation
 

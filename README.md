@@ -19,6 +19,7 @@ with the exact commands that produced them.
 
 - A live chat playground where visitors can talk to the assistant and see the actual model identifier returned by the API.
 - A transparent experiment: the complete JSON configuration (persona, policies, examples, verified facts, limitations) is displayed on the page and served by the API.
+- Live site browsing: the assistant can pull the current published text of veltroncars.com pages mid-conversation (server-side tool with an SSRF-hardened allowlist), so answers reflect the latest site content without maintaining it in the config.
 - A reproducible evaluation setup: deterministic tests plus a live behavioral evaluation script with structured results.
 
 ## What this project is not

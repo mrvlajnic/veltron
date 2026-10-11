@@ -58,6 +58,16 @@ with a privileged credential, so the server is treated as a trust boundary.
   repurposed as a general proxy.
 - Output is capped at `max_tokens: 1024`; upstream timeout is 45 s (`AbortController`).
 
+### Site browsing (SSRF protections)
+- The `browse_veltron_site` tool cannot be used as a general fetch proxy: the origin is a
+  hard-coded constant (`https://veltroncars.com`) and the path must match an exact allowlist of
+  public pages (single-segment paths only; `..`, query strings, fragments, and scheme-relative
+  URLs are rejected before any network request — tested).
+- Fetches use an 8 s timeout, a 500 KB HTML cap, and an ~8 000-character text cap; after redirect
+  the final URL's origin is re-checked and off-site redirects are refused.
+- Fetched HTML is stripped to text server-side (scripts, styles, and comments removed) and only
+  that text is ever returned to the model; page HTML is never forwarded to the browser.
+
 ### Error hygiene
 - Provider errors are mapped to generic messages (`PROVIDER_ERROR`, `TIMEOUT`); provider bodies,
   stack traces, internal paths, and the system prompt are never forwarded to visitors — tested with

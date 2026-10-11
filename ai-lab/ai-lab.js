@@ -143,7 +143,10 @@
 
                 const model = data.model || 'unknown model';
                 els.modelLabel.textContent = `Model: ${model}`;
-                addMessage('assistant', data.reply, `model: ${model}${data.config_version ? ` · config v${data.config_version}` : ''}`);
+                const browsed = Array.isArray(data.browsed_pages) && data.browsed_pages.length > 0
+                    ? ` · live site: ${data.browsed_pages.join(', ')}`
+                    : '';
+                addMessage('assistant', data.reply, `model: ${model}${data.config_version ? ` · config v${data.config_version}` : ''}${browsed}`);
                 setStatus('ok', 'Response received.');
             } else if (res.status === 429 || (data && data.code === 'RATE_LIMITED')) {
                 addMessage('error', data && data.error ? data.error : 'Rate limit exceeded. Please wait a moment.');
