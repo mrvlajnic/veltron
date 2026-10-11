@@ -11,22 +11,38 @@
 })();
 
 // 2. Navigation page order for directional slideshow effect
+// Mirrors the real nav order: Logo | Vision | Concepts | Process | [Journal] | About | AI Lab | Connect
 const VELTRON_PAGE_ORDER = {
     'index.html': 0,
     '': 0,
     '/': 0,
     'vision.html': 1,
-    'journal.html': 2,
+    'concepts.html': 2,
+    'concept-v1-sportline.html': 2, // subpage of Concepts
     'construction.html': 3,
-    'about.html': 4,
-    'contact.html': 5
+    'journal.html': 4, // legacy local page (nav now links to the subdomain)
+    'about.html': 5,
+    'ai-lab': 6, // directory route /ai-lab/ and /ai-lab/index.html
+    'contact.html': 7,
+    'pitch-deck.html': 0, // standalone pages
+    'veltronv1.html': 0
 };
 
 function getFilename(url) {
     try {
         const path = new URL(url, window.location.href).pathname;
-        const file = path.split('/').pop().toLowerCase();
-        return file || 'index.html';
+        const parts = path.split('/').filter(Boolean);
+        const last = (parts[parts.length - 1] || '').toLowerCase();
+
+        if (last.endsWith('.html') && last !== 'index.html') {
+            return last;
+        }
+        if (last === 'index.html') {
+            // /ai-lab/index.html -> 'ai-lab'; /index.html -> 'index.html'
+            return parts.length > 1 ? parts[parts.length - 2].toLowerCase() : 'index.html';
+        }
+        // Directory routes like /ai-lab/ ; root path -> index.html
+        return last || 'index.html';
     } catch (e) {
         return 'index.html';
     }
@@ -43,6 +59,23 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             const targetHref = link.getAttribute('href');
             if (!targetHref || targetHref.startsWith('#') || targetHref.startsWith('mailto:') || targetHref.startsWith('tel:')) {
+                return;
+            }
+
+            // Only primary-button, unmodified clicks navigate in this tab
+            if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+                return;
+            }
+
+            // Cross-origin targets (e.g. journal.veltroncars.com) never get a
+            // cross-document view transition — don't stage a direction for them.
+            let targetUrl;
+            try {
+                targetUrl = new URL(targetHref, window.location.href);
+            } catch (err) {
+                return;
+            }
+            if (targetUrl.origin !== window.location.origin) {
                 return;
             }
 
