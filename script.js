@@ -98,8 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hamburger && menu) {
         hamburger.addEventListener('click', (e) => {
             e.stopPropagation();
-            menu.classList.toggle('active');
-            hamburger.classList.toggle('toggle');
+            const isOpen = menu.classList.toggle('active');
+            hamburger.classList.toggle('toggle', isOpen);
+            hamburger.setAttribute('aria-expanded', String(isOpen));
         });
 
         // Close mobile menu when clicking any nav link
@@ -108,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
             item.addEventListener('click', () => {
                 menu.classList.remove('active');
                 hamburger.classList.remove('toggle');
+                hamburger.setAttribute('aria-expanded', 'false');
             });
         });
 
@@ -116,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (menu.classList.contains('active') && !menu.contains(e.target) && !hamburger.contains(e.target)) {
                 menu.classList.remove('active');
                 hamburger.classList.remove('toggle');
+                hamburger.setAttribute('aria-expanded', 'false');
             }
         });
     }

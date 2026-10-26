@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact & Connect | Veltron Auto</title>
     
+    <!-- Typography: Inter — self-hosted via @font-face in styles.css (Assets/fonts/) -->
     <link rel="stylesheet" href="Assets/css/styles.css">
     <link rel="stylesheet" href="Assets/css/ai-chat-widget.css?v=2">
     <link rel="icon" type="image/x-icon" href="Assets/img/favicon.ico">
@@ -97,9 +98,9 @@
         <div class="logo">
             <a href="index.html">VELTRON AUTO</a>
         </div>
-        <div class="hamburger" id="hamburger">
+        <button class="hamburger" id="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
             <span></span><span></span><span></span>
-        </div>
+        </button>
         <ul class="nav-links" id="nav-links">
             <li><a href="vision.html">Vision</a></li>
             <li><a href="concepts.html">Concepts</a></li>
@@ -182,9 +183,9 @@
                     const data = await res.json();
                     if (res.ok && data.success) {
                         formAlert.style.display = 'block';
-                        formAlert.style.background = 'rgba(0, 255, 100, 0.1)';
-                        formAlert.style.border = '1px solid #00ff64';
-                        formAlert.style.color = '#00ff64';
+                        formAlert.style.background = 'rgba(47, 191, 113, 0.12)';
+                        formAlert.style.border = '1px solid #2fbf71';
+                        formAlert.style.color = '#2fbf71';
                         formAlert.textContent = 'Hvala na poruci! Poruka je uspešno poslata.';
                         contactForm.reset();
                     } else {

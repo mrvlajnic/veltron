@@ -1,5 +1,5 @@
 :root {
-    --veltron-red: #D40000;
+    --veltron-red: var(--primary-red); /* alias na globalni brand token */
 }
 
 /* Base styles for the concepts showcase */
@@ -118,9 +118,10 @@
 
 /* concept-v1-sportline.html Styles */
 .detail-page-body {
+    height: 100vh;
+    height: 100svh;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
-    height: 100vh;
     scroll-behavior: smooth;
 }
 

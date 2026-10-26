@@ -1,6 +1,47 @@
+/* ==========================================================================
+   0. BRAND FONT — Inter, self-hosted (no third-party CDN dependency).
+   Variable font covering weight 200-700 in two unicode subsets:
+   latin + latin-ext (Serbian diacritics ć š ž đ č).
+   Files: Assets/fonts/Inter-*.woff2
+   ========================================================================== */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 200 700;
+    font-display: swap;
+    src: url('../fonts/Inter-latin-var.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 200 700;
+    font-display: swap;
+    src: url('../fonts/Inter-latin-ext-var.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 :root {
+    /* ==========================================================================
+       VELTRON DESIGN TOKENS — single source of truth (see docs/COLOR-PALETTE.md)
+       ========================================================================== */
+
+    /* Typography — brand font loaded via <link> in <head> (Inter) */
+    --font-sans: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+    /* Brand red */
     --primary-red: #D40000;
     --primary-red-rgb: 212, 0, 0;
+    --red-hover: #B30000;   /* hover/pressed on filled red elements */
+    --red-soft: #FF6B6B;    /* error text / error dots on dark tinted surfaces */
+
+    /* Status */
+    --success: #2FBF71;
+    --success-rgb: 47, 191, 113;
+    --warning: #F39C12;
+
+    /* Surfaces & text */
     --bg-black: #000000;
     --card-bg: #141414;
     --text-white: #ffffff;
@@ -14,10 +55,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--font-sans); /* Inter everywhere, OS-native fallbacks while loading */
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; /* anchor targets ne idu ispod fixed nav-a */ }
 
 body {
     background-color: var(--bg-black);
@@ -167,7 +208,7 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    transition: opacity 0.6s ease, visibility 0.6s;
+    transition: opacity 0.6s ease, visibility 0s linear 0.6s;
 }
 
 .loader {
@@ -249,6 +290,7 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 /* 4. HERO SECTION */
 .hero-section {
     height: 100vh;
+    height: 100svh; /* mobilni browseri sa adres-barom ne seku dno */
     background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), 
                 url('../img/Render2.webp') center/cover no-repeat;
     display: flex;
@@ -268,12 +310,6 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
     font-size: 1.2rem;
     margin-bottom: 40px;
 }
-#hero-image {
-    background-color: #0a0a0a; /* Tamna boja dok slika ne stigne */
-    filter: blur(5px); /* Možeš startovati sa blagim blurom */
-    transition: filter 0.5s ease-in-out;
-}
-
 /* 5. PREMIUM BUTTON */
 .cta-container {
     position: relative;
@@ -379,15 +415,6 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 }
 /* 7. FEATURES SECTION (DASHBOARD STYLE) */
 
-.feature-card {
-    text-decoration: none; /* Uklanja podvučenu liniju sa teksta */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer; /* Ovo je ključno da bi izgledalo kao link */
-    transition: var(--transition);
-}
-
 .features-section {
     background-color: #0c0c0c;
     padding: 60px 8%;
@@ -473,6 +500,8 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
     cursor: pointer;
     z-index: 1001;
     padding: 5px;
+    background: none;   /* reset: element je sada pravi <button> */
+    border: 0;
 }
 .hamburger span {
     width: 26px;
@@ -504,6 +533,7 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
         right: -100%;
         width: 100%;
         height: 100vh;
+        height: 100svh;
         background: var(--bg-black);
         flex-direction: column;
         align-items: center;
@@ -519,111 +549,9 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 .future-lab {
     padding: 100px 5%;
     background-color: #050505;
-    color: #fff;
-    border-top: 1px solid #1a1a1a;
-}
-
-.lab-header {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.lab-header h2 {
-    font-size: 2.5rem;
-    letter-spacing: 5px;
-    margin-bottom: 10px;
-}
-
-.lab-header .subtitle {
-    color: #888;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-}
-
-/* Grid Sistem */
-.lab-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dve kolone za desktop */
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Blueprint Kartice */
-.lab-card {
-    background: rgba(255, 255, 255, 0.02);
-    padding: 30px;
-    position: relative;
-    transition: all 0.4s ease;
-    min-height: 450px;
-}
-
-.blueprint-style {
-    border: 1px dashed #444; /* ISPREKIDANA LINIJA */
-}
-
-.lab-card:hover {
-    border-color: #fff;
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.card-tag {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 0.7rem;
-    color: #555;
-    text-transform: uppercase;
-}
-
-.lab-image, .lab-image-small {
-    width: 100%;
-    margin-bottom: 20px;
-    overflow: hidden;
-    filter: grayscale(100%) contrast(120%); /* Tehnički crno-beli izgled */
-    opacity: 0.7;
-}
-
-.lab-image img {
-    width: 100%;
-    height: auto;
-}
-/* Podesavanje oppasity i filtera na blueprint slikama da dobijemo taj tehnički izgled*/
-
-.lab-card:not(:first-child) .blueprint-img {
-    opacity: 0.6; /* Ovo će malo utopiti svetle slike u crnu pozadinu */
-}
-
-/* Lokacija - Pulsirajući efekat */
-.location-ping {
-    width: 10px;
-    height: 10px;
-    background-color: var(--primary-red);
-    border-radius: 50%;
-    margin: 20px auto;
-    box-shadow: 0 0 10px var(--primary-red);
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(3); opacity: 0; }
-}
-
-/* Responzivnost za mobilni */
-@media (max-width: 768px) {
-    .lab-grid {
-        grid-template-columns: 1fr; /* Jedna kolona na telefonu */
-    }
-}
-/* Future Lab Section Base */
-.future-lab {
-    padding: 100px 5%;
-    background-color: #050505;
     color: #ffffff;
     border-top: 1px solid #1a1a1a;
-    font-family: 'Inter', sans-serif; /* Ili tvoj primarni font */
+    font-family: var(--font-sans);
 }
 
 .lab-header {
@@ -659,8 +587,9 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
     background: rgba(255, 255, 255, 0.02);
     padding: 40px;
     position: relative;
+    min-height: 450px;
     border: 1px dashed #333; /* The dashed line you requested */
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .lab-card:hover {
@@ -679,10 +608,11 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
     letter-spacing: 1px;
 }
 
-/* Image Handling */
+/* Image Handling — filter/opacity daje tehnički crno-beli izgled */
 .lab-image, .lab-image-small {
     width: 100%;
     margin-bottom: 25px;
+    overflow: hidden;
     filter: grayscale(100%) brightness(0.8);
     opacity: 0.8;
     border: 1px solid #222;
@@ -691,6 +621,11 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 .blueprint-img {
     width: 100%;
     display: block;
+}
+
+/* Omotane su u account da utopimo svetle slike u crnu pozadinu */
+.lab-card:not(:first-child) .blueprint-img {
+    opacity: 0.6;
 }
 
 /* Map & Marker System */
@@ -1384,7 +1319,7 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
 
 .status-active {
     background: rgba(var(--primary-red-rgb), 0.12);
-    color: #ff5555;
+    color: var(--red-soft);
     border: 1px solid rgba(var(--primary-red-rgb), 0.5);
 }
 
@@ -2441,5 +2376,14 @@ html[data-nav-dir="slide-backward"]::view-transition-new(root) {
     .journal-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* ==========================================================================
+   14. CONTACT PAGE FORM CARD (contact.html koristi .model-card wrapper)
+   ========================================================================== */
+.model-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
 }
 

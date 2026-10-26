@@ -97,8 +97,8 @@
 }
 
 .ai-lab-btn-primary:hover:not(:disabled) {
-    background: #b50000;
-    border-color: #b50000;
+    background: var(--red-hover);
+    border-color: var(--red-hover);
 }
 
 .ai-lab-btn-primary:disabled {
@@ -183,7 +183,7 @@
     flex-shrink: 0;
 }
 
-.ai-lab-status-dot.is-ok { background: #2fbf71; }
+.ai-lab-status-dot.is-ok { background: var(--success); }
 .ai-lab-status-dot.is-error { background: var(--primary-red); }
 .ai-lab-status-dot.is-loading {
     background: #888;
@@ -234,7 +234,7 @@
     max-width: 100%;
     background: rgba(var(--primary-red-rgb), 0.1);
     border: 1px solid rgba(var(--primary-red-rgb), 0.4);
-    color: #ff8f8f;
+    color: var(--red-soft);
     font-size: 0.85rem;
 }
 
@@ -489,7 +489,7 @@
     color: var(--text-gray);
 }
 
-.ai-lab-eval-status.is-pass { border-color: rgba(47, 191, 113, 0.5); color: #2fbf71; }
+.ai-lab-eval-status.is-pass { border-color: rgba(var(--success-rgb), 0.5); color: var(--success); }
 .ai-lab-eval-status.is-fail { border-color: rgba(var(--primary-red-rgb), 0.5); color: #ff6b6b; }
 
 /* ---------- Technical table ---------- */
